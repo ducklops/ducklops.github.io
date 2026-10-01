@@ -13,6 +13,7 @@ readables/              Readables blog
 corrections/index.html  Corrections
 memberships/index.html  Memberships
 contact/index.html      Contact
+ai/index.html           AI.TXT: your AI statement (hidden page, not in the main menu)
 home/index.html         redirect: old /home link -> new homepage
 404.html                "Duck not found" page
 assets/js/config.js     <-- day-to-day settings (latest video, next drop, API key)
@@ -82,6 +83,11 @@ Edit `corrections/index.html`. There's a commented template block near the top w
 
 ### New member on the Memberships page
 Edit `memberships/index.html`, find `<ul class="hall-list">` and add `<li>Name</li>`.
+
+### Your AI statement (AI.TXT)
+Edit `ai/index.html`. Find the comment that says **WRITE YOUR STATEMENT HERE** and replace the placeholder paragraphs with your own (each paragraph inside `<p> … </p>`). Update the **Modified** date in the Properties box below it when you change it.
+
+It's deliberately not in the main menu. People find it by moving, minimising or closing the Welcome window on the desktop (the `ai.txt` file is hiding underneath), in the Start menu, or via the yellow **AI.TXT / Read me** badge in every page's footer.
 
 ### Your logo
 Upload it as `assets/img/logo.png` (square works best). It appears beside the wordmark automatically.
