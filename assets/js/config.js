@@ -37,7 +37,7 @@ window.DUCKLOPS_CONFIG = {
     "Prefer reading? Every review lives in Readables.",
     "Spotted a mistake? It's probably on the Corrections page already.",
     "Tip: click the bread.",
-    "Psst. Something's hiding behind the Welcome window..."
+    "Psst. Something's hiding behind the Welcome window...",
     "This weather we're having - am I right?"
   ]
 };
