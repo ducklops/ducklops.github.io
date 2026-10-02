@@ -13,7 +13,7 @@ window.DUCKLOPS_CONFIG = {
   /* --- OPTIONAL: live subscriber count + automatic "latest video" -----
      Paste a YouTube Data API v3 key here (see README, step 6).
      Leave it as "" and the site just uses latestVideo below.           */
-  youtubeApiKey: "",
+  youtubeApiKey: "AIzaSyDeH8-9bhb5-bXi3kp7bcAnFZszV9RD2Sc",
 
   /* --- Latest video (used when there's no API key) -------------------- */
   latestVideo: {
@@ -38,5 +38,6 @@ window.DUCKLOPS_CONFIG = {
     "Spotted a mistake? It's probably on the Corrections page already.",
     "Tip: click the bread.",
     "Psst. Something's hiding behind the Welcome window..."
+    "This weather we're having - am I right?"
   ]
 };
