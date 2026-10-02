@@ -26,7 +26,7 @@ window.DUCKLOPS_CONFIG = {
      Put a date/time to show a live countdown, e.g. "2026-10-18T18:00".
      Leave as "" to show "DATE TO BE ANNOUNCED".                         */
   nextVideo: {
-    date: "",
+    date: "2026-10-11T16:30",
     label: ""                          // optional, e.g. "Planet Zoo vs ZT2"
   },
 
