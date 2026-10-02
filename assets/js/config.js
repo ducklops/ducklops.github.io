@@ -38,6 +38,7 @@ window.DUCKLOPS_CONFIG = {
     "Spotted a mistake? It's probably on the Corrections page already.",
     "Tip: click the bread.",
     "Psst. Something's hiding behind the Welcome window...",
-    "This weather we're having - am I right?"
+    "This weather we're having - am I right?",
+    "Weeeeeeeeeeeeeeeeeeeeeeeeeeee!"
   ]
 };
