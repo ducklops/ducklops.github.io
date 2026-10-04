@@ -13,7 +13,7 @@ window.DUCKLOPS_CONFIG = {
   /* --- OPTIONAL: live subscriber count + automatic "latest video" -----
      Paste a YouTube Data API v3 key here (see README, step 6).
      Leave it as "" and the site just uses latestVideo below.           */
-  youtubeApiKey: "AIzaSyDeH8-9bhb5-bXi3kp7bcAnFZszV9RD2Sc",
+  youtubeApiKey: "",
 
   /* --- Latest video (used when there's no API key) -------------------- */
   latestVideo: {
