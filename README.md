@@ -16,6 +16,7 @@ contact/index.html      Contact
 ai/index.html           AI.TXT: your AI statement (hidden page, not in the main menu)
 home/index.html         redirect: old /home link -> new homepage
 404.html                "Duck not found" page
+admin/                  the Console: edit everything below from a web page
 assets/js/config.js     <-- day-to-day settings (latest video, next drop, API key)
 assets/css/style.css    all the styling
 assets/fonts/           Black Han Sans + Tiny5 (self-hosted, OFL licence)
@@ -65,6 +66,22 @@ Old links keep working: `ducklops.com/home` and every old `ducklops.com/readable
 ---
 
 ## Everyday updates
+
+### The easy way: the Console
+Go to **www.ducklops.com/admin/**. From there you can set the next video drop (and mark it as delayed), switch the banner and pop-up on or off, edit the taskbar ticker, write and edit Readables (with a preview), add corrections and update the members wall. Nothing goes live until you press **Publish**, and everything you changed goes up together in one commit. The site updates about a minute later.
+
+**First time only:** the Console needs a GitHub key so it can save to your repo. It shows the steps on its log-on screen, but in short:
+1. Open https://github.com/settings/personal-access-tokens/new
+2. Name it *Ducklops console*, pick an expiry, choose **Only select repositories** → your website repo.
+3. Under **Repository permissions**, set **Contents** to **Read and write**.
+4. **Generate token**, copy it, paste it into the Console. Tick *Remember on this device* so you only do this once per device.
+
+The key is kept in that browser only and can't touch anything except this repo. When it expires, make a new one the same way. The `/admin/` page itself is public but does nothing without a key, and it's hidden from search engines.
+
+If you also edit files directly on GitHub, the Console always loads the latest version when you open it. If something changes on GitHub while you have it open, it will tell you rather than overwrite it.
+
+### By hand
+The sections below are how to make the same changes directly on GitHub, if you ever need to.
 
 To change a file on GitHub: open it → pencil icon (**Edit**) → change → **Commit changes**. The site updates in about a minute.
 
