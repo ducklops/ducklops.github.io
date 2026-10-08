@@ -289,6 +289,9 @@
   function changeCount() { return changes().length; }
   function touch(what) { S.dirty[what] = true; refreshBar(); }
 
+  var CANT_SAVE = "Your GitHub key can see the repo but isn't allowed to save to it. On GitHub, open Settings → Developer settings → Fine-grained tokens → your Ducklops console key → Edit, then: (1) under Repository access choose \"Only select repositories\" and pick the website repo (not \"Public repositories\"), and (2) under Repository permissions set Contents to \"Read and write\". Click Update, then come back and try again. You don't need a new key.";
+  function cantSave(e) { return e && (e.status === 403 || e.status === 404) && /not accessible|not found|permission/i.test(e.message || ""); }
+
   /* ---------------- sign in ---------------- */
   function renderLogin(msg, kind) {
     var repo = sget(LS_REPO);
@@ -332,7 +335,9 @@
         repo = pick[0].full_name;
       }
       var info = await gh("/repos/" + repo);
-      if (info.permissions && info.permissions.push === false) throw Object.assign(new Error("That key can read the repo but not change it. Give it Contents: Read and write."), { status: -1 });
+      if (info.permissions && info.permissions.push === false) throw Object.assign(new Error(CANT_SAVE), { status: -1 });
+      try { await gh("/repos/" + info.full_name + "/git/blobs", { method: "POST", body: { content: "ducklops console write check", encoding: "utf-8" } }); }
+      catch (we) { if (cantSave(we)) throw Object.assign(new Error(CANT_SAVE), { status: -1 }); throw we; }
       S.repo = info.full_name; S.branch = info.default_branch || "main";
       sset(LS_REPO, S.repo);
       sdel(LS_TOKEN); sset(LS_TOKEN, token, !remember);
@@ -342,6 +347,7 @@
       var m = e.message;
       if (e.status === 401) m = "GitHub didn't accept that key. Check you copied all of it, and that it hasn't expired.";
       else if (e.status === 404) m = "Couldn't find that repository with this key. Check the name, and that the key was given access to it.";
+      else if (cantSave(e)) m = CANT_SAVE;
       else if (e.status === 403) m = "GitHub refused: " + e.message;
       if (e.status === 401) sdel(LS_TOKEN);
       renderLogin(m);
@@ -872,7 +878,7 @@
         go.remove(); back.querySelector(".popup-btns [data-x]").textContent = "Close";
         await loadAll(sha);
       } catch (e) {
-        out.innerHTML = '<div class="msg err">' + esc(e.message) + "</div>";
+        out.innerHTML = '<div class="msg err">' + esc(cantSave(e) ? CANT_SAVE : e.message) + "</div>";
         go.disabled = false; go.textContent = "Try again";
       }
     });
