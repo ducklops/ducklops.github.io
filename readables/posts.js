@@ -67,8 +67,7 @@ window.READABLES = [
     author: "Harry",
     date: "2025-12-30",
     tags: ["Comparison"],
-    summary: "Two absolute classics in the zoo management genre, with both clear differences and genuine similarities. Just months separate their releases, but is there a clear winner between the two? Let’s find out!",
-    status: "soon"
+    summary: "Two absolute classics in the zoo management genre, with both clear differences and genuine similarities. Just months separate their releases, but is there a clear winner between the two? Let’s find out!"
   },
   {
     slug: "jwe2-vs-jpog-2025",
