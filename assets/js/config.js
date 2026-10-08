@@ -33,6 +33,38 @@ window.DUCKLOPS_CONFIG = {
     pushedBack: 7
   },
 
+  /* --- Scrolling banner across the top of every page ------------------
+     on: true to show it, false to hide it.
+     messages: one or more lines; they scroll past one after another.
+     link: optional, makes the banner clickable, e.g. "readables/".     */
+  banner: {
+    on: false,
+    messages: [
+      "New video every other Sunday!",
+      "Duck tier members get videos early."
+    ],
+    link: "",
+    speed: 60                          // pixels per second; lower = slower
+  },
+
+  /* --- Pop-up notice ---------------------------------------------------
+     on: true to show it, false to turn it off.
+     Visitors only see it once. To show a NEW notice to everyone again,
+     change the id (any word, e.g. "notice-2").
+     homeOnly: true = only on the home page, false = whichever page
+     they land on first.                                                 */
+  popup: {
+    on: false,
+    id: "notice-1",
+    title: "NOTICE.TXT",
+    message: "Something new is coming. Stay tuned, ducks!",
+    button: "OK",
+    link: "",                          // optional extra button, e.g. "https://youtu.be/..."
+    linkText: "Take a look",
+    homeOnly: true,
+    delay: 1.5                         // seconds before it appears
+  },
+
   /* --- Messages that scroll along the desktop taskbar ----------------- */
   ticker: [
     "Welcome to DucklopsOS. Mind the ducks.",
