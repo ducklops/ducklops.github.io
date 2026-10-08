@@ -290,7 +290,19 @@
   if (nextLcd && nv.date) {
     var when = new Date(nv.date);
     if (!isNaN(when)) {
-      if (nextNote) nextNote.textContent = nv.label || when.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+      var dayFmt = { weekday: "short", day: "numeric", month: "short" };
+      if (nextNote) {
+        nextNote.textContent = nv.label || when.toLocaleDateString("en-GB", dayFmt);
+        var slip = +nv.pushedBack || 0;
+        if (slip > 0 && when > new Date()) {
+          var was = document.createElement("s");
+          was.className = "was";
+          was.textContent = new Date(when.getTime() - slip * 864e5).toLocaleDateString("en-GB", dayFmt);
+          was.title = "Pushed back " + (slip === 7 ? "a week" : slip + " days") + ". Sorry, ducks!";
+          nextNote.insertBefore(document.createTextNode(" "), nextNote.firstChild);
+          nextNote.insertBefore(was, nextNote.firstChild);
+        }
+      }
       var countdown = function () {
         var ms = when - new Date();
         if (ms <= 0) { nextLcd.textContent = "Out now!"; return; }
@@ -300,7 +312,7 @@
         setTimeout(countdown, 1000);
       };
       countdown();
-      pushTicker("Next video drops " + when.toLocaleDateString("en-GB", { day: "numeric", month: "long" }) + ".");
+      pushTicker((+nv.pushedBack > 0 ? "Next video got nudged back a bit. Now dropping " : "Next video drops ") + when.toLocaleDateString("en-GB", { day: "numeric", month: "long" }) + ".");
     }
   }
 })();

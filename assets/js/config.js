@@ -24,10 +24,13 @@ window.DUCKLOPS_CONFIG = {
 
   /* --- Next video drop ------------------------------------------------
      Put a date/time to show a live countdown, e.g. "2026-10-18T18:00".
-     Leave as "" to show "DATE TO BE ANNOUNCED".                         */
+     Leave as "" to show "DATE TO BE ANNOUNCED".
+     pushedBack: number of days it slipped. Shows the old date crossed out
+     under the countdown. Set back to 0 for the next video.               */
   nextVideo: {
     date: "2026-10-11T16:30",
-    label: ""                          // optional, e.g. "Planet Zoo vs ZT2"
+    label: "",                         // optional, e.g. "Planet Zoo vs ZT2"
+    pushedBack: 7
   },
 
   /* --- Messages that scroll along the desktop taskbar ----------------- */
