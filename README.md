@@ -71,6 +71,13 @@ To change a file on GitHub: open it → pencil icon (**Edit**) → change → **
 ### New video
 Edit `assets/js/config.js` → `latestVideo`: paste the video ID (the bit after `youtu.be/`), title and a one-line blurb.
 For a countdown, set `nextVideo.date`, e.g. `"2026-10-18T18:00"`. Clear it back to `""` afterwards.
+If it slips, set `nextVideo.pushedBack` to the number of days (e.g. `7`) to show the old date crossed out. Set it back to `0` afterwards.
+
+### Scrolling banner
+Edit `assets/js/config.js` → `banner`. Set `on: true` to show it across the top of every page, `on: false` to hide it. Put your lines in `messages` (each in quotes, comma between them). `link` is optional and makes the banner clickable.
+
+### Pop-up notice
+Edit `assets/js/config.js` → `popup`. Set `on: true` and write your `message` (`\n` starts a new paragraph). Each visitor sees it once. For a new notice that everyone should see again, change `id` to something new, e.g. `"notice-2"`. `on: false` turns it off.
 
 ### New Readable
 1. **Add file → Create new file**, name it `readables/posts/your-slug.md`, paste the article and commit.
