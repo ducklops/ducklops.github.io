@@ -25,6 +25,15 @@
 
 window.READABLES = [
   {
+    slug: "i-didnt-realise-how-awesome-timberborn-1-1-is",
+    title: "I Didn’t Realise How AWESOME Timberborn 1.1 is…",
+    videoId: "ZwOKMdkDIJE",
+    author: "Harry",
+    date: "2026-09-20",
+    tags: ["Update"],
+    summary: "For the last week or so, I’ve been elbow-deep in one of the biggest updates Timberborn has ever had and I’d love to tell you all about it. There’s new maps, new ways to build, new snazzy outfits, and a lot more."
+  },
+  {
     slug: "14-things-i-wish-were-in-prehistoric-kingdom",
     title: "14 Things I WISH Were in Prehistoric Kingdom",
     videoId: "xm8cMZBdrM8",
