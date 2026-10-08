@@ -418,6 +418,7 @@ main { flex: 1; }
 .lcd.small { font-size: 18px; }
 .gadget p { margin: 0; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
 .gadget a.btn { align-self: center; }
+.gadget p .was { color: var(--muted); opacity: .7; text-decoration-color: var(--red); text-decoration-thickness: 2px; cursor: help; }
 
 .feature { margin-top: 34px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 0; background: var(--paper); border: 3px solid var(--ink); box-shadow: var(--shadow); }
 .feature .thumb { border: 0; border-right: 3px solid var(--ink); }
