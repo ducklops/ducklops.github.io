@@ -28,7 +28,7 @@ window.DUCKLOPS_CONFIG = {
      pushedBack: number of days it slipped. Shows the old date crossed out
      under the countdown. Set back to 0 for the next video.               */
   nextVideo: {
-    date: "2026-10-11T16:30",
+    date: "2026-10-18T16:30",
     label: "",                         // optional, e.g. "Planet Zoo vs ZT2"
     pushedBack: 7
   },
@@ -54,10 +54,10 @@ window.DUCKLOPS_CONFIG = {
      homeOnly: true = only on the home page, false = whichever page
      they land on first.                                                 */
   popup: {
-    on: false,
-    id: "notice-1",
+    on: true,
+    id: "notice-2",
     title: "NOTICE.TXT",
-    message: "Something new is coming. Stay tuned, ducks!",
+    message: "Sunday's video has been pushed back at least 1 week. It's longer than usual but I'm working to get it out ASAP!",
     button: "OK",
     link: "",                          // optional extra button, e.g. "https://youtu.be/..."
     linkText: "Take a look",
