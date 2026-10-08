@@ -64,6 +64,7 @@ window.READABLES = [
   {
     slug: "zoo-tycoon-2-vs-jpog",
     title: "Zoo Tycoon 2 vs JPOG - Which Game Holds Up Better?",
+    videoId: "0YnidKeDAdI",
     author: "Harry",
     date: "2025-12-30",
     tags: ["Comparison"],
