@@ -64,7 +64,10 @@ window.READABLES = [
   {
     slug: "zoo-tycoon-2-vs-jpog",
     title: "Zoo Tycoon 2 vs JPOG - Which Game Holds Up Better?",
+    author: "Harry",
+    date: "2025-12-30",
     tags: ["Comparison"],
+    summary: "Two absolute classics in the zoo management genre, with both clear differences and genuine similarities. Just months separate their releases, but is there a clear winner between the two? Let’s find out!",
     status: "soon"
   },
   {
