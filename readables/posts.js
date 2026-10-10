@@ -31,7 +31,18 @@ window.READABLES = [
     author: "Harry",
     date: "2026-09-20",
     tags: ["Update"],
-    summary: "For the last week or so, I’ve been elbow-deep in one of the biggest updates Timberborn has ever had and I’d love to tell you all about it. There’s new maps, new ways to build, new snazzy outfits, and a lot more."
+    summary: "For the last week or so, I’ve been elbow-deep in one of the biggest updates Timberborn has ever had and I’d love to tell you all about it. There’s new maps, new ways to build, new snazzy outfits, and a lot more.",
+    minutes: 5
+  },
+  {
+    slug: "16-things-i-love-about-prehistoric-kingdom",
+    title: "16 Things I LOVE About Prehistoric Kingdom",
+    videoId: "CA4GMfJZ004",
+    author: "Harry",
+    date: "2026-07-12",
+    tags: ["List"],
+    summary: "Prehistoric Kingdom is an amazing game, but there are certain things that really set it apart from other games like it. Not just the obvious with its hyperrealistic dinosaur models, there’s some things you might not think about that truly make it special.",
+    minutes: 10
   },
   {
     slug: "14-things-i-wish-were-in-prehistoric-kingdom",
@@ -73,8 +84,11 @@ window.READABLES = [
   {
     slug: "jwe2-vs-jpog-2025",
     title: "Jurassic World Evolution 2 vs Jurassic Park: Operation Genesis [2025]",
+    videoId: "IA6sOiQ9Ik0",
+    author: "Harry",
     tags: ["Comparison"],
-    status: "soon"
+    summary: "How does a classic in the Jurassic Park series hold up against Jurassic World Evolution 2? Does newer mean better, or are the classics still holding up well? Let’s find out!",
+    minutes: 8
   },
   {
     slug: "planet-zoo-but-weird-mars-attracts-review",

@@ -38,12 +38,12 @@ window.DUCKLOPS_CONFIG = {
      messages: one or more lines; they scroll past one after another.
      link: optional, makes the banner clickable, e.g. "readables/".     */
   banner: {
-    on: false,
+    on: true,
     messages: [
-      "New video every other Sunday!",
+      "New video Sunday 18th!",
       "Duck tier members get videos early."
     ],
-    link: "",
+    link: "https://www.youtube.com/channel/UCfzosx6K6cPJolK7zgRDAqg/join",
     speed: 60                          // pixels per second; lower = slower
   },
 
@@ -55,9 +55,9 @@ window.DUCKLOPS_CONFIG = {
      they land on first.                                                 */
   popup: {
     on: true,
-    id: "notice-2",
+    id: "notice-3",
     title: "NOTICE.TXT",
-    message: "Sunday's video has been pushed back at least 1 week. It's longer than usual but I'm working to get it out ASAP!",
+    message: "Sunday's video has been pushed back at least 1 week to Sunday the 18th. It's longer than usual but I'm working to get it out ASAP!",
     button: "OK",
     link: "",                          // optional extra button, e.g. "https://youtu.be/..."
     linkText: "Take a look",
@@ -70,7 +70,7 @@ window.DUCKLOPS_CONFIG = {
     "Welcome to DucklopsOS. Mind the ducks.",
     "Duck tier members get new videos early!",
     "Prefer reading? Every review lives in Readables.",
-    "Spotted a mistake? It's probably on the Corrections page already.",
+    "Spotted a mistake? Check the Corrections page, then let me know!",
     "Tip: click the bread.",
     "Psst. Something's hiding behind the Welcome window...",
     "This weather we're having - am I right?",
