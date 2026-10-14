@@ -6,6 +6,9 @@
 
 @font-face { font-family: "Black Han Sans"; src: url("../fonts/black-han-sans.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Tiny5"; src: url("../fonts/tiny5.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* Istok Web: Frutiger-style fallback for Aero mode on Macs/phones (Windows uses Segoe UI). Only downloads if needed. */
+@font-face { font-family: "Istok Web"; src: url("../fonts/istok-web-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Istok Web"; src: url("../fonts/istok-web-latin-700-normal.woff2") format("woff2"); font-weight: 600 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "Tiny5"; src: url("../fonts/tiny5-ext.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
 :root {
@@ -187,6 +190,24 @@ main { flex: 1; }
 .badge i { font-style: normal; padding: 3px 6px 2px; }
 .badge.g b { background: var(--green); }
 .copyright { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: #c9c4b2; margin: 0; }
+
+/* footer tools: privacy link + the Frutiger Aero button */
+.footer-tools { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px 22px; margin: 0 0 20px; }
+.footer-link { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--paper); text-underline-offset: 3px; }
+.footer-link:hover { color: var(--green); }
+.aero-toggle {
+  display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
+  font-family: "Segoe UI", "Frutiger", "Myriad Pro", "Istok Web", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px; font-weight: 600; letter-spacing: .01em; color: #fff; text-shadow: 0 1px 1px rgba(0,40,80,.6);
+  padding: 6px 16px 6px 7px; border-radius: 999px; border: 1px solid #0b5f99;
+  background: linear-gradient(180deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.22) 47%, rgba(255,255,255,0) 52%, rgba(255,255,255,.12) 100%), linear-gradient(180deg, #2f9fe0, #0a5fa6);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.12), 0 0 16px rgba(80,190,255,.45), inset 0 1px 0 rgba(255,255,255,.8);
+  transition: transform .15s, box-shadow .15s, filter .15s;
+}
+.aero-toggle:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 0 0 2px rgba(255,255,255,.2), 0 0 24px rgba(110,210,255,.8), inset 0 1px 0 rgba(255,255,255,.8); }
+.aero-toggle:active { transform: translateY(1px); }
+.aero-orb { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; background: radial-gradient(circle at 36% 28%, #fff 0 14%, #c9f7ad 28%, #48c63e 66%, #1c7a26 100%); box-shadow: inset 0 -2px 3px rgba(0,0,0,.25), 0 0 8px rgba(150,255,120,.85); }
+.aero-toggle[aria-pressed="true"] .aero-orb { background: radial-gradient(circle at 36% 28%, #fff 0 14%, #ffe9a6 28%, #ffb300 66%, #a96200 100%); box-shadow: inset 0 -2px 3px rgba(0,0,0,.25), 0 0 8px rgba(255,210,90,.85); }
 
 /* =====================================================================
    HOME — the DucklopsOS monitor
@@ -519,6 +540,21 @@ a.card:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--gree
 a.ts:hover { background: var(--green-dk); color: var(--paper); }
 .thanks { display: block; margin-top: 4px; font-size: 14px; color: var(--green-xdk); letter-spacing: .04em; }
 .thanks::before { content: "♥ "; color: var(--red); }
+
+/* =====================================================================
+   PRIVACY
+   ===================================================================== */
+.privacy { font-size: 18px; line-height: 1.7; }
+.privacy h2 { scroll-margin-top: 100px; }
+.privacy .policy p { margin: 0 0 .6em; }
+.privacy .policy p:last-child { margin: 0; }
+.table-wrap { overflow-x: auto; margin: 0 0 1.1em; border: 3px solid var(--ink); box-shadow: var(--shadow-sm); background: var(--paper-2); }
+.prose table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.4; }
+.prose th { text-align: left; font-weight: 400; text-transform: uppercase; letter-spacing: .1em; font-size: 13px; background: var(--ink); color: var(--paper); padding: 8px 12px 6px; }
+.prose td { padding: 9px 12px; border-top: 2px dashed rgba(31,36,33,.25); vertical-align: top; }
+html.aero .table-wrap { border: 1px solid rgba(255,255,255,.95); border-radius: 12px; background: var(--glass); }
+html.aero .prose th { background: linear-gradient(180deg, #5fd0ff, #1590da); text-transform: none; letter-spacing: .02em; font-weight: 600; font-size: 14px; }
+html.aero .prose td { border-top: 1px solid rgba(21,144,218,.18); }
 
 /* =====================================================================
    MEMBERSHIPS

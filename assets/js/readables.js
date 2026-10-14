@@ -16,6 +16,43 @@
   }
   function postURL(p) { return BASE + "readables/post.html?p=" + encodeURIComponent(p.slug); }
 
+  /* ----------------- per-article search + sharing tags -----------------
+     Every article lives at post.html?p=slug, so the page's tags are filled in
+     here for the article being shown (Google reads them after running JS). */
+  var SITE = "https://www.ducklops.com/";
+  function setSEO(p) {
+    var url = SITE + "readables/post.html?p=" + encodeURIComponent(p.slug);
+    var desc = p.summary || ("A Ducklops Readable: " + p.title + ", the written version of the video.");
+    if (desc.length > 300) desc = desc.slice(0, 297).replace(/\s+\S*$/, "") + "…";
+    var img = p.videoId ? "https://i.ytimg.com/vi/" + p.videoId + "/hqdefault.jpg" : SITE + "assets/img/logo.png";
+    function tag(sel, make, attr, val) {
+      var el = document.head.querySelector(sel);
+      if (!el) { el = document.createElement(make[0]); el.setAttribute(make[1], make[2]); document.head.appendChild(el); }
+      el.setAttribute(attr, val);
+    }
+    tag('link[rel="canonical"]', ["link", "rel", "canonical"], "href", url);
+    tag('meta[name="description"]', ["meta", "name", "description"], "content", desc);
+    tag('meta[property="og:title"]', ["meta", "property", "og:title"], "content", p.title + " | Ducklops Readables");
+    tag('meta[property="og:description"]', ["meta", "property", "og:description"], "content", desc);
+    tag('meta[property="og:url"]', ["meta", "property", "og:url"], "content", url);
+    tag('meta[property="og:type"]', ["meta", "property", "og:type"], "content", "article");
+    tag('meta[property="og:image"]', ["meta", "property", "og:image"], "content", img);
+    tag('meta[property="og:image:alt"]', ["meta", "property", "og:image:alt"], "content", p.title);
+    tag('meta[name="twitter:card"]', ["meta", "name", "twitter:card"], "content", p.videoId ? "summary_large_image" : "summary");
+    var ld = {
+      "@context": "https://schema.org", "@type": "Article",
+      headline: p.title, description: desc, image: [img], url: url, mainEntityOfPage: url, inLanguage: "en-GB",
+      author: { "@type": "Person", name: p.author || "Ducklops" },
+      publisher: { "@type": "Organization", name: "Ducklops", logo: { "@type": "ImageObject", url: SITE + "assets/img/logo.png" } }
+    };
+    if (p.date) { ld.datePublished = p.date; ld.dateModified = p.updated || p.date; }
+    if (p.editor) ld.editor = { "@type": "Person", name: p.editor };
+    if (p.videoId) ld.video = { "@type": "VideoObject", name: p.title, embedUrl: "https://www.youtube.com/embed/" + p.videoId, thumbnailUrl: img, uploadDate: p.date || undefined, description: desc };
+    var s = document.createElement("script");
+    s.type = "application/ld+json"; s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  }
+
   /* ----------------- tiny Markdown renderer ----------------- */
   function inline(s) {
     s = esc(s);
@@ -128,9 +165,12 @@
       postBox.innerHTML = '<div class="post-head"><p class="kicker">Error 404</p><h1 class="display post-title">Readable not found</h1></div>' +
         '<p class="prose">' + msg + '</p><p><a class="btn btn--green" href="' + BASE + 'readables/">Back to Readables</a></p>';
     }
-    if (!post || post.status === "soon") { fail("That file seems to have waddled off. It may have been renamed or is still being written."); }
+    if (!post || post.status === "soon") {
+      var nr = document.createElement("meta"); nr.name = "robots"; nr.content = "noindex"; document.head.appendChild(nr);
+      fail("That file seems to have waddled off. It may have been renamed or is still being written."); }
     else {
       document.title = post.title + " | Ducklops Readables";
+      setSEO(post);
       if (titleBar) titleBar.textContent = post.slug.slice(0, 28).toUpperCase() + ".TXT";
       var meta = [];
       if (post.author) meta.push("Written by " + esc(post.author));

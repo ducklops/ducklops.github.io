@@ -14,6 +14,9 @@ corrections/index.html  Corrections
 memberships/index.html  Memberships
 contact/index.html      Contact
 ai/index.html           AI.TXT: your AI statement (hidden page, not in the main menu)
+privacy/index.html      Privacy policy (linked from every page's footer)
+robots.txt              tells search engines what to crawl, and asks AI training bots to stay away
+sitemap.xml             list of every page for Google (the Console keeps it up to date)
 home/index.html         redirect: old /home link -> new homepage
 404.html                "Duck not found" page
 admin/                  the Console: edit everything below from a web page
@@ -115,6 +118,39 @@ It's deliberately not in the main menu. People find it by moving, minimising or 
 
 ### Your logo
 Upload it as `assets/img/logo.png` (square works best). It appears beside the wordmark automatically.
+
+---
+
+## Frutiger Aero mode
+
+The glossy **Frutiger Aero** button in every page's footer turns the whole site into a Vista/Windows 7-era look: sky and grass background, glass windows, glossy buttons, a start orb and rising bubbles. It lasts for that visit only (it switches itself off when the tab is closed) and the button changes to **Back to the 90s** to turn it off.
+
+- All the styling lives in `assets/css/aero.css`, and everything in it starts with `html.aero`, so it can't affect the normal look.
+- On Windows it uses Segoe UI, the real Aero font. Everywhere else it falls back to Istok Web (free, self-hosted).
+
+## Reading modes (Readables only)
+
+Every Readable, and the Readables list, has a **Reading mode** menu under the window title:
+
+| Mode | What it does |
+|---|---|
+| Standard | The normal pixel look |
+| Visual stress (Irlen's) | A tinted page (8 colours to pick from), softer contrast, no stripes/dots/dashes |
+| Dyslexia | Andika font, cream page, bigger text, extra letter/word/line spacing, shorter lines |
+| Tracking (ADHD) | Longer lines with much more space between lines and paragraphs |
+
+All three swap the pixel font for **Andika** (by SIL International, designed for new and struggling readers; free, self-hosted). Italics and ALL CAPS are switched off in every mode. The choice is remembered for that visit only, and never changes any page outside Readables. Styling is in `assets/css/reading.css`, the menu in `assets/js/reading.js`.
+
+## Privacy policy
+
+`privacy/index.html`. Update the **Last updated** date at the bottom whenever you change it. If you ever add analytics, a contact form, comments or the members' login area, the policy needs updating **before** that goes live. The shop has its own policy (Fourthwall keeps it up to date), which this page links to.
+
+## Search engines (SEO)
+
+- `robots.txt` lets search engines in, keeps `/admin/` out, and asks known AI training crawlers (GPTBot, ClaudeBot, Google-Extended, CCBot and friends) not to scrape. Blocking those doesn't affect Google or Bing search results. It's a polite request, so badly behaved bots can still ignore it.
+- `sitemap.xml` lists every page and every published Readable. The Console rewrites it automatically whenever you publish a change to Readables. If you add a Readable by hand on GitHub, add a line to the sitemap too.
+- Each Readable now tells Google its own address, title, description, thumbnail and date (it used to tell Google every article was the same page).
+- After the site is live: add it to **Google Search Console** (search.google.com/search-console), verify with a DNS record at your domain provider, then submit `https://www.ducklops.com/sitemap.xml`. Do the same at **Bing Webmaster Tools** (it can import from Google in one click).
 
 ---
 

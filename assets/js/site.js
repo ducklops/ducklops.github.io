@@ -229,6 +229,54 @@
     }
   }
 
+  // ---------- Frutiger Aero mode (this visit only: sessionStorage) ----------
+  // The <head> of every page re-applies it before paint, so there's no flash between pages.
+  var root = document.documentElement, AERO_KEY = "ducklops-aero";
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  var themeNormal = themeMeta ? themeMeta.getAttribute("content") : "#43c767";
+  function aeroOn() { return root.classList.contains("aero"); }
+  function bubbles() {
+    if (reduceMotion || document.querySelector(".aero-sky")) return;
+    var sky = document.createElement("div");
+    sky.className = "aero-sky"; sky.setAttribute("aria-hidden", "true");
+    for (var i = 0; i < 16; i++) {
+      var b = document.createElement("i"), s = 10 + Math.random() * 46;
+      b.style.width = b.style.height = s + "px";
+      b.style.left = (Math.random() * 100) + "%";
+      b.style.animationDuration = (14 + Math.random() * 18) + "s";
+      b.style.animationDelay = (-Math.random() * 30) + "s";
+      sky.appendChild(b);
+    }
+    document.body.insertBefore(sky, document.body.firstChild);
+  }
+  function paintAero() {
+    var on = aeroOn();
+    document.querySelectorAll("[data-aero-toggle]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      var lbl = btn.querySelector("[data-aero-label]");
+      if (lbl) lbl.textContent = on ? "Back to the 90s" : "Frutiger Aero";
+      btn.title = on ? "Switch back to the normal DucklopsOS look" : "Make everything glossy (just for this visit)";
+    });
+    if (themeMeta) themeMeta.setAttribute("content", on ? "#1aa0d8" : themeNormal);
+    if (on) bubbles();
+  }
+  function setAero(on) {
+    root.classList.toggle("aero", on);
+    store.sset(AERO_KEY, on ? "1" : "0");
+    paintAero();
+    quackSound(on ? 1.45 : 0.85);
+    if (on && !reduceMotion) {
+      var f = document.createElement("div"); f.className = "aero-flash"; f.setAttribute("aria-hidden", "true");
+      document.body.appendChild(f); setTimeout(function () { f.remove(); }, 1000);
+    }
+  }
+  document.querySelectorAll("[data-aero-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () { setAero(!aeroOn()); });
+  });
+  paintAero();
+  window.Ducklops.setAero = setAero;
+
   // ---------- YouTube thumbnails: fall back if maxres isn't there ----------
   document.querySelectorAll("img[data-yt]").forEach(function (img) {
     img.addEventListener("error", function () {

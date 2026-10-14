@@ -265,6 +265,21 @@
     src = src.replace(/<span class="led">[^<]*<\/span>/, '<span class="led">' + V + " video" + (V === 1 ? "" : "s") + " · " + N + " correction" + (N === 1 ? "" : "s") + "</span>");
     return src;
   }
+  // sitemap.xml: rebuilt from the Readables list so Google finds every article
+  function genSitemap() {
+    var SITE = "https://www.ducklops.com/";
+    var today = new Date().toISOString().slice(0, 10);
+    var live = S.posts.filter(function (p) { return p && p.slug && p.status !== "soon"; });
+    var pages = [["", today, "1.0"], ["readables/", (live[0] && live[0].date) || today, "0.9"], ["corrections/", today, "0.6"],
+      ["memberships/", today, "0.6"], ["contact/", today, "0.5"], ["ai/", today, "0.3"], ["privacy/", today, "0.2"]];
+    var x = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Readables are added here automatically when you publish from the Console. -->\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    pages.forEach(function (r) { x += "  <url><loc>" + SITE + r[0] + "</loc><lastmod>" + r[1] + "</lastmod><priority>" + r[2] + "</priority></url>\n"; });
+    live.forEach(function (p) {
+      var d = /^\d{4}-\d{2}-\d{2}$/.test(p.date || "") ? "<lastmod>" + p.date + "</lastmod>" : "";
+      x += "  <url><loc>" + SITE + "readables/post.html?p=" + encodeURIComponent(p.slug) + "</loc>" + d + "<priority>0.8</priority></url>\n";
+    });
+    return x + "</urlset>\n";
+  }
   function genMembers() {
     var src = S.files[P.members].text;
     var lis = S.members.map(function (m) { return "            <li>" + esc(m) + "</li>"; }).join("\n");
@@ -276,6 +291,7 @@
     var out = [];
     if (S.dirty.config) out.push({ path: P.config, label: "Site settings", gen: genConfig });
     if (S.dirty.posts) out.push({ path: P.posts, label: "Readables list", gen: genPosts });
+    if (S.dirty.posts) out.push({ path: "sitemap.xml", label: "Sitemap (for Google)", gen: genSitemap });
     Object.keys(S.mdDirty).forEach(function (slug) {
       if (S.posts.some(function (p) { return p.slug === slug; })) out.push({ path: P.md(slug), label: "Article: " + slug, gen: function () { return String(S.md[slug] || "").replace(/\s*$/, "\n"); } });
     });

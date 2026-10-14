@@ -1,0 +1,136 @@
+/* =====================================================================
+   DUCKLOPS — READING MODES (Readables only)
+   Picked from the "Reading mode" menu at the top of Readables.
+   Remembered for this visit only (sessionStorage), never on other pages.
+
+   html[data-read="stress"]    Visual stress (Irlen's): tinted page, softer contrast, no busy patterns
+   html[data-read="dyslexia"]  Dyslexia: Andika font, cream page, extra letter/word/line spacing
+   html[data-read="tracking"]  Tracking (ADHD): longer lines, lots more space between lines
+   ===================================================================== */
+
+/* Andika (SIL International, OFL licence): designed for new and struggling readers */
+@font-face { font-family: "Andika"; src: url("../fonts/andika-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Andika"; src: url("../fonts/andika-latin-ext-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Andika"; src: url("../fonts/andika-latin-700-normal.woff2") format("woff2"); font-weight: 600 700; font-style: normal; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Andika"; src: url("../fonts/andika-latin-ext-700-normal.woff2") format("woff2"); font-weight: 600 700; font-style: normal; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* ---------- the menu bar + dropdown (always shown on Readables) ---------- */
+.read-bar { position: relative; z-index: 6; display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-bottom: 3px solid var(--ink); background: var(--paper-2); }
+.read-btn {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: var(--font-body); font-size: 15px; color: var(--ink); background: none; border: 2px solid transparent; padding: 3px 10px 2px;
+}
+.read-btn:hover, .read-btn[aria-expanded="true"] { background: var(--navy); color: #fff; }
+.read-btn b { font-weight: 400; background: var(--green-lt); color: var(--ink); padding: 0 5px; }
+.read-aa { font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1; border: 2px solid currentColor; padding: 0 3px; }
+.read-panel {
+  position: absolute; top: calc(100% + 3px); left: 8px; width: min(380px, calc(100vw - 40px));
+  background: var(--paper); border: 3px solid var(--ink); box-shadow: 6px 6px 0 rgba(31,36,33,.85);
+  padding: 12px 14px 10px;
+}
+.read-panel[hidden] { display: none; }
+.read-panel fieldset { border: 0; margin: 0; padding: 0; }
+.read-panel legend { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; padding: 0; }
+.read-opt { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; padding: 8px 6px; cursor: pointer; border: 2px solid transparent; }
+.read-opt:hover { border-color: var(--ink); background: var(--paper-2); }
+.read-opt input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--green-dk); }
+.read-opt b { display: block; font-weight: 400; font-size: 17px; line-height: 1.25; }
+.read-opt small { display: block; font-size: 14px; line-height: 1.35; color: var(--ink-2); }
+.read-opt:has(input:checked) { background: var(--green-lt); border-color: var(--ink); }
+.read-tints { margin-top: 8px !important; padding-top: 10px !important; border-top: 2px dashed rgba(31,36,33,.3) !important; }
+.read-tints[hidden] { display: none; }
+.tint-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; }
+.tint { position: relative; cursor: pointer; }
+.tint input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.tint span { display: grid; place-items: center; width: 100%; height: 32px; border: 2px solid var(--ink); background: var(--sw); font-size: 11px; }
+.tint input:checked + span { outline: 3px solid var(--ink); outline-offset: 2px; }
+.tint input:checked + span::after { content: "✓"; font-size: 16px; }
+.tint input:focus-visible + span { outline: 3px dashed var(--green-dk); outline-offset: 3px; }
+.read-note { margin: 10px 0 0; font-size: 13px; line-height: 1.4; color: var(--muted); }
+
+/* ---------- shared by all three modes ----------
+   The pixel font is lovely but hard work for long reading, so every mode swaps
+   the reading window (.read-scope) to Andika, drops ALL CAPS and stops the
+   pixel-y letter spacing. The header, nav and footer stay as they are. */
+:root[data-read] .read-scope {
+  --read-font: "Andika", Verdana, Tahoma, "Segoe UI", sans-serif;
+  --read-bg: #fbf6e6;
+  --read-ink: #24211c;
+}
+:root[data-read] .read-scope :is(.win-body, .win-status) { background: var(--read-bg); color: var(--read-ink); }
+:root[data-read] .read-scope,
+:root[data-read] .read-scope :is(p, li, h1, h2, h3, h4, span, a, b, input, button, label, small, div, blockquote, code) {
+  font-family: var(--read-font);
+}
+:root[data-read] .read-scope .read-aa { font-family: Georgia, "Times New Roman", serif; }
+:root[data-read] .read-scope :is(.kicker, .post-meta, .meta, .tag, .chip, .win-title, .win-status, .lead, .read-panel legend) { text-transform: none; letter-spacing: .02em; }
+:root[data-read] .read-scope .display { font-weight: 700; letter-spacing: 0; line-height: 1.15; }
+:root[data-read] .read-scope .post-title { font-size: clamp(30px, 4.6vw, 52px); }
+:root[data-read] .read-scope .page-title { font-size: clamp(34px, 6vw, 72px); }
+:root[data-read] .read-scope .prose { color: var(--read-ink); text-align: left; hyphens: none; }
+:root[data-read] .read-scope .prose :is(h2, h3) { font-weight: 700; text-transform: none; letter-spacing: 0; line-height: 1.25; }
+:root[data-read] .read-scope .prose h2 { font-size: clamp(25px, 3vw, 32px); }
+/* no italics, ever: highlights stay, slanted text goes */
+:root[data-read] .read-scope :is(em, i) { font-style: normal; }
+:root[data-read] .read-scope .prose strong { font-weight: 700; }
+:root[data-read] .read-scope .card :is(h3, p) { color: var(--read-ink); }
+:root[data-read] .read-scope .card h3 { font-weight: 700; font-size: 20px; line-height: 1.3; }
+:root[data-read] .read-scope .notice { font-size: 16px; line-height: 1.6; }
+
+/* ---------- 1. VISUAL STRESS (Irlen's) ----------
+   A coloured page the reader picks, softer text, and none of the stripes,
+   dots, dashes or hard offset shadows that make text shimmer. */
+:root[data-read="stress"] .read-scope { --read-ink: #353331; }
+:root[data-read="stress"][data-tint="yellow"] .read-scope { --read-bg: #fbf3c8; }
+:root[data-read="stress"][data-tint="peach"]  .read-scope { --read-bg: #fbe2cf; }
+:root[data-read="stress"][data-tint="rose"]   .read-scope { --read-bg: #f7dde3; }
+:root[data-read="stress"][data-tint="lilac"]  .read-scope { --read-bg: #e7dff2; }
+:root[data-read="stress"][data-tint="blue"]   .read-scope { --read-bg: #dbe7f6; }
+:root[data-read="stress"][data-tint="aqua"]   .read-scope { --read-bg: #d5efec; }
+:root[data-read="stress"][data-tint="green"]  .read-scope { --read-bg: #e0efd6; }
+:root[data-read="stress"][data-tint="grey"]   .read-scope { --read-bg: #e5e4e0; }
+:root[data-read="stress"] body { background-image: none; }
+:root[data-read="stress"] .read-scope { box-shadow: none; border-color: #6d6a64; }
+:root[data-read="stress"] .read-scope :is(.card, .prose blockquote, .notice, .search, .chip, .empty) { background: var(--read-bg); box-shadow: none; border-width: 2px; border-color: rgba(53,51,49,.35); }
+:root[data-read="stress"] .read-scope .card.soon { background: var(--read-bg); }
+:root[data-read="stress"] .read-scope .card .thumb { border-bottom-color: rgba(53,51,49,.35); }
+:root[data-read="stress"] .read-scope :is(.post-head, .post-foot) { border-style: solid; border-color: rgba(53,51,49,.25); border-width: 0 0 2px; }
+:root[data-read="stress"] .read-scope .post-foot { border-width: 2px 0 0; }
+:root[data-read="stress"] .read-scope .prose hr { border-top: 2px solid rgba(53,51,49,.25); }
+:root[data-read="stress"] .read-scope .prose { font-size: 20px; line-height: 1.75; letter-spacing: .02em; word-spacing: .08em; max-width: 64ch; }
+:root[data-read="stress"] .read-scope .prose :is(em, strong) { background: rgba(255,255,255,.45); }
+:root[data-read="stress"] .read-scope :is(.win-status .led)::before { animation: none; }
+:root[data-read="stress"] .read-scope a.card:hover { box-shadow: none; }
+:root[data-read="stress"] .read-scope .progress span { background: #8a8578; }
+
+/* ---------- 2. DYSLEXIA ----------
+   Cream page, Andika, and the British Dyslexia Association's style-guide basics:
+   bigger text, wider letter and word spacing, 1.5+ line spacing, shorter lines. */
+:root[data-read="dyslexia"] .read-scope { --read-bg: #fbf5e2; --read-ink: #26221c; }
+:root[data-read="dyslexia"] .read-scope .prose { font-size: 21px; line-height: 1.8; letter-spacing: .035em; word-spacing: .16em; max-width: 60ch; }
+:root[data-read="dyslexia"] .read-scope .prose p { margin-bottom: 1.35em; }
+:root[data-read="dyslexia"] .read-scope .prose li { margin-bottom: .5em; }
+:root[data-read="dyslexia"] .read-scope :is(.lead, .card p, .notice) { letter-spacing: .03em; word-spacing: .12em; line-height: 1.65; }
+:root[data-read="dyslexia"] .read-scope .card { background: #fffbef; }
+
+/* ---------- 3. TRACKING (ADHD) ----------
+   Longer lines so you're not constantly jumping back, and lots more space
+   between them so your eyes land on the right next line. */
+:root[data-read="tracking"] .read-scope { --read-bg: #fdfcf7; --read-ink: #222420; }
+:root[data-read="tracking"] .read-scope .prose { max-width: 98ch; font-size: 19px; line-height: 2.3; word-spacing: .06em; }
+:root[data-read="tracking"] .read-scope .prose p { margin-bottom: 1.9em; }
+:root[data-read="tracking"] .read-scope .prose :is(h2, h3) { margin-top: 2.2em; }
+:root[data-read="tracking"] .read-scope .post-video { max-width: 760px; }
+:root[data-read="tracking"] .read-scope :is(.lead, .card p) { line-height: 1.9; }
+:root[data-read="tracking"] .read-scope .lead { max-width: 80ch; }
+
+/* ---------- reading modes win over Aero mode inside the reading window ---------- */
+html.aero[data-read] .read-scope { background: var(--read-bg); }
+html.aero[data-read] .read-scope .prose { color: var(--read-ink); }
+html.aero[data-read] .read-scope :is(.page-title, .post-title) { color: var(--read-ink); text-shadow: none; }
+html.aero .read-bar { background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(225,242,252,.8)); border-bottom: 1px solid rgba(21,144,218,.25); }
+html.aero .read-btn:hover, html.aero .read-btn[aria-expanded="true"] { background: linear-gradient(180deg, #e6f7ff, #a8e0ff); color: #062c4f; border-radius: 4px; }
+html.aero .read-panel { border: 1px solid #b9dcf2; border-radius: 12px; background: linear-gradient(180deg, #ffffff, #eaf6ff); box-shadow: 0 16px 40px rgba(0,40,80,.3); }
+html.aero .read-opt { border-radius: 8px; }
+html.aero .read-opt:has(input:checked) { background: linear-gradient(180deg, #eaffde, #c8f5b0); border-color: #5fb84a; }
+html.aero .tint span { border: 1px solid rgba(0,0,0,.35); border-radius: 8px; }

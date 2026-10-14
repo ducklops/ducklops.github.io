@@ -3,11 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
 <title>Readables | Ducklops</title>
 <meta name="description" content="Every Ducklops review and comparison, written up as an article.">
 <meta name="theme-color" content="#43c767">
 <meta property="og:title" content="Readables | Ducklops">
 <meta property="og:description" content="Every Ducklops review and comparison, written up as an article.">
+<meta property="og:site_name" content="Ducklops">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://www.ducklops.com/assets/img/logo.png">
+<meta property="og:image:alt" content="The Ducklops duck logo">
+<meta name="twitter:card" content="summary">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.ducklops.com/readables/">
 <link rel="canonical" href="https://www.ducklops.com/readables/">
@@ -15,6 +21,9 @@
 <link rel="preload" href="../assets/fonts/black-han-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/tiny5.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/aero.css">
+<link rel="stylesheet" href="../assets/css/reading.css">
+<script>(function(){var d=document.documentElement;try{if(sessionStorage.getItem("ducklops-aero")==="1")d.className+=" aero"}catch(e){}try{var m=sessionStorage.getItem("ducklops-read");if(m&&m!=="off"){d.setAttribute("data-read",m);d.setAttribute("data-tint",sessionStorage.getItem("ducklops-tint")||"yellow")}}catch(e){}})()</script>
 </head>
 <body data-base="../">
 <a class="skip" href="#main">Skip to content</a>
@@ -31,9 +40,10 @@
 <main id="main">
 
 <div class="page"><div class="wrap">
-  <div class="win">
+  <div class="win read-scope">
     <div class="win-bar"><img class="px" src="../assets/img/book.svg" alt=""><span class="win-title">C:\DUCKLOPS\READABLES</span>
       <span class="win-btns" aria-hidden="false"><span aria-hidden="true">_</span><span aria-hidden="true">□</span><a href="../" aria-label="Close, back to home">×</a></span></div>
+    <div data-readmode></div>
     <div class="win-body">
       <h1 class="display page-title">Readables<span class="dot">.</span></h1>
       <p class="lead">Do you hate the sound of my voice, but like what I'm talking about? Would you prefer to read my reviews and comparisons as though they were an article? Well, you've found the right place! Welcome to Ducklops Readables!</p>
@@ -63,6 +73,10 @@
       <span class="badge g" aria-hidden="true"><b>No AI</b><i>Scraping</i></span>
       <a class="badge badge-link" href="../ai/" aria-label="AI.TXT: how Ducklops uses AI"><b>AI.TXT</b><i>Read me</i></a>
     </div>
+    <div class="footer-tools">
+      <a class="footer-link" href="../privacy/">Privacy</a>
+      <button type="button" class="aero-toggle" data-aero-toggle aria-pressed="false"><span class="aero-orb" aria-hidden="true"></span><span data-aero-label>Frutiger Aero</span></button>
+    </div>
     <p class="copyright">© <span data-year>2026</span> Ducklops · All rights reserved</p>
   </div>
 </footer>
@@ -70,5 +84,6 @@
 <script src="../assets/js/site.js"></script>
 <script src="../readables/posts.js"></script>
 <script src="../assets/js/readables.js"></script>
+<script src="../assets/js/reading.js"></script>
 </body>
 </html>
