@@ -25,6 +25,15 @@
 
 window.READABLES = [
   {
+    slug: "i-counted-down-every-dinosaur-in-prehistoric-kingdom",
+    title: "I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
+    author: "Harry",
+    date: "2026-10-18",
+    tags: ["Ranking"],
+    summary: "Some dinosaurs are objectively cooler than others, so today I’ll be counting them down starting right at the bottom, and working our way all the way up to Prehistoric Kingdom’s coolest, meanest, and best dinosaur.",
+    status: "soon"
+  },
+  {
     slug: "i-didnt-realise-how-awesome-timberborn-1-1-is",
     title: "I Didn’t Realise How AWESOME Timberborn 1.1 is…",
     videoId: "ZwOKMdkDIJE",

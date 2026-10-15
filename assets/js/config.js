@@ -29,7 +29,7 @@ window.DUCKLOPS_CONFIG = {
      under the countdown. Set back to 0 for the next video.               */
   nextVideo: {
     date: "2026-10-18T16:30",
-    label: "",                         // optional, e.g. "Planet Zoo vs ZT2"
+    label: "I Counted Down EVERY Dinosaur in Prehistoric Kingdom",                         // optional, e.g. "Planet Zoo vs ZT2"
     pushedBack: 7
   },
 
@@ -40,11 +40,11 @@ window.DUCKLOPS_CONFIG = {
   banner: {
     on: true,
     messages: [
-      "New video Sunday 18th!",
+      "Coming Sunday: I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
       "Duck tier members get videos early."
     ],
     link: "https://www.youtube.com/channel/UCfzosx6K6cPJolK7zgRDAqg/join",
-    speed: 60                          // pixels per second; lower = slower
+    speed: 40                          // pixels per second; lower = slower
   },
 
   /* --- Pop-up notice ---------------------------------------------------
@@ -55,12 +55,12 @@ window.DUCKLOPS_CONFIG = {
      they land on first.                                                 */
   popup: {
     on: true,
-    id: "notice-3",
+    id: "notice-4",
     title: "NOTICE.TXT",
-    message: "Sunday's video has been pushed back at least 1 week to Sunday the 18th. It's longer than usual but I'm working to get it out ASAP!",
+    message: "Coming Sunday: I Counted Down EVERY Dinosaur in Prehistoric Kingdom\nThe video is a week late, and a long time coming, but I spent a lot of time making it so I hope you enjoy it.",
     button: "OK",
-    link: "",                          // optional extra button, e.g. "https://youtu.be/..."
-    linkText: "Take a look",
+    link: "https://www.youtube.com/channel/UCfzosx6K6cPJolK7zgRDAqg/join",                          // optional extra button, e.g. "https://youtu.be/..."
+    linkText: "Access early",
     homeOnly: true,
     delay: 1.5                         // seconds before it appears
   },
