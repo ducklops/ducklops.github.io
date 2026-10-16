@@ -37,7 +37,7 @@ window.DUCKLOPS_CONFIG = {
   nextVideo: {
     date: "2026-10-18T16:30",
     label: "I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
-    url: "",
+    url: "https://youtu.be/IpnuKrPoOUM",
     pushedBack: 7,
     eventMode: true
   },
@@ -64,7 +64,7 @@ window.DUCKLOPS_CONFIG = {
      they land on first.                                                 */
   popup: {
     on: true,
-    id: "notice-4",
+    id: "notice-5",
     title: "NOTICE.TXT",
     message: "Coming Sunday: I Counted Down EVERY Dinosaur in Prehistoric Kingdom\nThe video is a week late, and a long time coming, but I spent a lot of time making it so I hope you enjoy it.",
     button: "OK",
