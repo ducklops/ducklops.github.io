@@ -20,6 +20,7 @@ sitemap.xml             list of every page for Google (the Console keeps it up t
 home/index.html         redirect: old /home link -> new homepage
 404.html                "Duck not found" page
 admin/                  the Console: edit everything below from a web page
+special/                Event Mode: the countdown stage before a new video (automatic)
 assets/js/config.js     <-- day-to-day settings (latest video, next drop, API key)
 assets/css/style.css    all the styling
 assets/fonts/           Black Han Sans + Tiny5 (self-hosted, OFL licence)
@@ -92,6 +93,21 @@ To change a file on GitHub: open it → pencil icon (**Edit**) → change → **
 Edit `assets/js/config.js` → `latestVideo`: paste the video ID (the bit after `youtu.be/`), title and a one-line blurb.
 For a countdown, set `nextVideo.date`, e.g. `"2026-10-18T18:00"`. Clear it back to `""` afterwards.
 If it slips, set `nextVideo.pushedBack` to the number of days (e.g. `7`) to show the old date crossed out. Set it back to `0` afterwards.
+
+### Event Mode (automatic)
+For the **6 hours before** `nextVideo.date`, anyone who opens the site lands on **ducklops.com/special**: a dark stage with spotlights, lasers and fog, and a clicking countdown to the video. At release it fires pyro and confetti and shows a **Watch it now** button. **30 minutes after** release, new visitors get the normal site again. It all runs off the clock, so there's nothing to switch on or off on the day.
+
+The only things it needs (all in the Console's **Videos** tab, or `nextVideo` in `config.js`):
+- `date`: release time, UK time. Viewers abroad see the right countdown for their own clock.
+- `label`: the video title.
+- `url`: the YouTube link, once the premiere/scheduled video exists. Until then the Watch button goes to your channel.
+- `eventMode: false` to skip it for one video (the Console's **Skip Event Mode for this video** box). Setting a new date after a video has gone out switches it back on.
+
+Good to know:
+- "Just take me to the site" (bottom right) takes people back to the page they were heading for, and they won't be bounced again in that tab. Clicking around inside the site never triggers it, only opening it fresh.
+- It works in Frutiger Aero mode too (and the toggle is on the stage).
+- Sound is off unless the visitor turns it on. People who've turned animations off get a still stage.
+- To rehearse it any time: **Preview the stage** / **Preview the release** in the Console, or `/special/?demo` (`&in=60` for a 60-second countdown, `&live` to jump to the release).
 
 ### Scrolling banner
 Edit `assets/js/config.js` → `banner`. Set `on: true` to show it across the top of every page, `on: false` to hide it. Put your lines in `messages` (each in quotes, comma between them). `link` is optional and makes the banner clickable.

@@ -267,6 +267,13 @@
   }
   paintLatest(C.latestVideo);
 
+  // For two days after a release, the video from the Event Mode settings counts as the latest,
+  // so the home page is right straight away instead of waiting for the YouTube robot.
+  var EV = window.DucklopsEvent, ev = EV ? EV.info() : null;
+  var fresh = ev && ev.videoId && Date.now() >= ev.release && Date.now() < ev.release + 2 * 864e5
+    ? { id: ev.videoId, title: ev.title || "New video", blurb: "" } : null;
+  if (fresh) paintLatest(fresh);
+
   var subsLcd = document.querySelector("[data-subs]");
   var subsNote = document.querySelector("[data-subs-note]");
   function fmt(n) { n = +n; return n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M" : n >= 1e4 ? (n / 1e3).toFixed(n >= 1e5 ? 0 : 1) + "K" : n.toLocaleString("en-GB"); }
@@ -281,14 +288,15 @@
           if (subsNote) subsNote.textContent = "Fresh from YouTube";
           pushTicker("We're " + fmt(j.subscriberCount) + " ducks strong. Thank you!");
         }
-        if (j.latestVideo && j.latestVideo.id) paintLatest(j.latestVideo);
+        if (j.latestVideo && j.latestVideo.id && (!fresh || j.latestVideo.id === fresh.id)) paintLatest(j.latestVideo);
       }).catch(function () {});
   }
 
   var nextLcd = document.querySelector("[data-next]"), nextNote = document.querySelector("[data-next-note]");
   var nv = C.nextVideo || {};
   if (nextLcd && nv.date) {
-    var when = new Date(nv.date);
+    var t0 = EV ? EV.ukTime(nv.date) : Date.parse(nv.date);   // the date is UK time, wherever the viewer is
+    var when = new Date(t0 == null ? NaN : t0);
     if (!isNaN(when)) {
       var dayFmt = { weekday: "short", day: "numeric", month: "short" };
       if (nextNote) {
@@ -305,7 +313,14 @@
       }
       var countdown = function () {
         var ms = when - new Date();
-        if (ms <= 0) { nextLcd.textContent = "Out now!"; return; }
+        if (ms <= 0) {
+          nextLcd.textContent = "Out now!";
+          if (ev && nextNote && !nextNote.querySelector("a")) {
+            var go = document.createElement("a"); go.href = ev.watchUrl; go.target = "_blank"; go.rel = "noopener"; go.textContent = "Watch it ›";
+            nextNote.textContent = ""; nextNote.appendChild(go);
+          }
+          return;
+        }
         var s = Math.floor(ms / 1000), d = Math.floor(s / 86400), hh = Math.floor(s % 86400 / 3600), mm = Math.floor(s % 3600 / 60), ss = s % 60;
         function p(n) { return (n < 10 ? "0" : "") + n; }
         nextLcd.textContent = (d ? d + "d " : "") + p(hh) + ":" + p(mm) + ":" + p(ss);

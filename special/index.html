@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>New video incoming · Ducklops</title>
+<meta name="description" content="A new Ducklops video is about to drop. Grab a seat.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05060c">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/black-han-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/tiny5.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/aero.css">
+<link rel="stylesheet" href="../assets/css/event.css">
+<script>(function(){var d=document.documentElement;try{if(sessionStorage.getItem("ducklops-aero")==="1")d.className+=" aero"}catch(e){}})()</script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/event.js"></script>
+</head>
+<body data-base="../" data-quiet class="ev-page">
+
+<!-- ===== the stage (decoration only) ===== -->
+<div class="stage" aria-hidden="true">
+  <div class="stars"></div>
+  <div class="backdrop"><span class="backdrop-word">DUCKLOPS</span></div>
+  <div class="floor"><div class="grid"></div></div>
+  <div class="stage-lip"></div>
+  <div class="pool"></div>
+  <div class="beams">
+    <span class="beam" style="--x:10%;--a1:-28deg;--a2:8deg;--d:11s;--dl:-2s"></span>
+    <span class="beam" style="--x:30%;--a1:18deg;--a2:-12deg;--d:9s;--dl:-5s"></span>
+    <span class="beam beam--follow" style="--x:50%;--a1:-2deg;--a2:2deg;--d:7s;--dl:0s"></span>
+    <span class="beam" style="--x:70%;--a1:-16deg;--a2:14deg;--d:10s;--dl:-1s"></span>
+    <span class="beam" style="--x:90%;--a1:26deg;--a2:-8deg;--d:12s;--dl:-7s"></span>
+  </div>
+  <div class="lasers lasers--l">
+    <span class="laser" style="--a1:18deg;--a2:46deg;--c:var(--laser-1);--d:7s"></span>
+    <span class="laser" style="--a1:30deg;--a2:58deg;--c:var(--laser-2);--d:9s;--dl:-3s"></span>
+    <span class="laser" style="--a1:40deg;--a2:66deg;--c:var(--laser-3);--d:8s;--dl:-6s"></span>
+  </div>
+  <div class="lasers lasers--r">
+    <span class="laser" style="--a1:-18deg;--a2:-46deg;--c:var(--laser-1);--d:8s;--dl:-2s"></span>
+    <span class="laser" style="--a1:-30deg;--a2:-58deg;--c:var(--laser-2);--d:7s;--dl:-5s"></span>
+    <span class="laser" style="--a1:-40deg;--a2:-66deg;--c:var(--laser-3);--d:9s"></span>
+  </div>
+  <div class="truss">
+    <span class="can" style="--x:10%"></span><span class="can" style="--x:30%"></span><span class="can can--big" style="--x:50%"></span><span class="can" style="--x:70%"></span><span class="can" style="--x:90%"></span>
+  </div>
+  <div class="fog fog--1"></div>
+  <div class="fog fog--2"></div>
+  <div class="fog fog--3"></div>
+</div>
+<canvas class="fx" aria-hidden="true"></canvas>
+<div class="crt" aria-hidden="true"></div>
+<div class="flash" aria-hidden="true"></div>
+
+<!-- ===== the countdown ===== -->
+<main id="main" class="ev-main">
+  <section class="win ev-win" aria-labelledby="ev-head">
+    <div class="win-bar"><img class="px" src="../assets/img/tv.svg" alt=""><span class="win-title" data-ev-wintitle>COUNTDOWN.EXE</span>
+      <span class="win-btns"><span aria-hidden="true">_</span><span aria-hidden="true">□</span><a href="../" data-ev-skip aria-label="Close, and go to the site">×</a></span></div>
+    <div class="ev-body">
+      <p class="kicker ev-kicker" data-ev-kicker>DucklopsOS // premiere in progress</p>
+      <h1 id="ev-head" class="display ev-head"><span data-ev-head>COMING SOON:</span></h1>
+
+      <div class="clock-row" role="timer" aria-label="Countdown" data-ev-timer>
+        <div class="fg"><div class="tiles"><span class="fd"><b>0</b></span><span class="fd"><b>0</b></span></div><small>Days</small></div>
+        <span class="colon" aria-hidden="true">:</span>
+        <div class="fg"><div class="tiles"><span class="fd"><b>0</b></span><span class="fd"><b>0</b></span></div><small>Hrs</small></div>
+        <span class="colon" aria-hidden="true">:</span>
+        <div class="fg"><div class="tiles"><span class="fd"><b>0</b></span><span class="fd"><b>0</b></span></div><small>Mins</small></div>
+        <span class="colon" aria-hidden="true">:</span>
+        <div class="fg"><div class="tiles"><span class="fd"><b>0</b></span><span class="fd"><b>0</b></span></div><small>Secs</small></div>
+      </div>
+
+      <p class="display ev-title" data-ev-title>NEW VIDEO</p>
+      <p class="ev-tag" data-ev-tag>Don't miss it!</p>
+
+      <div class="btn-row ev-btns">
+        <a class="btn btn--green ev-watch" data-ev-watch href="https://youtube.com/@ducklops/videos" target="_blank" rel="noopener" hidden><img class="px" src="../assets/img/tv.svg" alt="">Watch it now</a>
+        <a class="btn" data-ev-remind href="https://youtube.com/@ducklops?sub_confirmation=1" target="_blank" rel="noopener"><img class="px" src="../assets/img/bell.svg" alt=""><span data-ev-remind-label>Subscribe</span></a>
+      </div>
+    </div>
+    <div class="win-status"><span class="led" data-ev-status>On air soon</span><span data-ev-when></span></div>
+  </section>
+</main>
+
+<div class="ev-tools">
+  <button type="button" class="ev-sound" data-ev-sound aria-pressed="false"><span aria-hidden="true" data-ev-sound-icon>🔈</span><span data-ev-sound-label>Sound off</span></button>
+  <button type="button" class="aero-toggle" data-aero-toggle aria-pressed="false"><span class="aero-orb" aria-hidden="true"></span><span data-aero-label>Frutiger Aero</span></button>
+</div>
+<a class="ev-skip" href="../" data-ev-skip>Just take me to the site ›</a>
+<p class="ev-sr" aria-live="polite" data-ev-announce></p>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/special.js"></script>
+</body>
+</html>

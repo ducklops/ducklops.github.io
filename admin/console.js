@@ -190,7 +190,7 @@
   }
   var CONFIG_FIELDS = [
     ["latestVideo", ["id", "title", "blurb"]],
-    ["nextVideo", ["date", "label", "pushedBack"]],
+    ["nextVideo", ["date", "label", "url", "pushedBack", "eventMode"]],
     ["banner", ["on", "messages", "link", "speed"]],
     ["popup", ["on", "id", "title", "message", "button", "link", "linkText", "homeOnly", "delay"]],
     [null, ["ticker"]]
@@ -462,6 +462,7 @@
         if (type === "num") nv = nv === "" ? 0 : +nv;
         if (type === "lines") nv = lines(nv);
         if (type === "yt") nv = ytId(nv) || "";
+        if (type === "yturl") nv = ytId(nv) ? "https://youtu.be/" + ytId(nv) : nv.trim();
         obj[key] = nv;
         cfgCheck(); refreshBar();
         if (onChange) onChange(el);
@@ -488,15 +489,23 @@
   /* ---------- Videos tab ---------- */
   function paneVideos(pane) {
     var nv = S.cfg.nextVideo, slip = +nv.pushedBack || 0;
+    var H = '<span class="hint" style="text-transform:none;letter-spacing:0">';
     pane.innerHTML =
       "<h2>Next video drop</h2>" +
-      '<div class="row"><label class="field"><span>Date and time (UK time)</span><input type="datetime-local" data-bind="nextVideo.date"></label>' +
-      '<label class="field"><span>Label (optional)</span><input type="text" data-bind="nextVideo.label" placeholder="e.g. Planet Zoo vs ZT2"><span class="hint" style="text-transform:none;letter-spacing:0">Shows instead of the date under the countdown.</span></label></div>' +
+      '<div class="row"><label class="field"><span>Release date and time (UK time)</span><input type="datetime-local" data-bind="nextVideo.date"></label>' +
+      '<label class="field"><span>Video title</span><input type="text" data-bind="nextVideo.label" placeholder="e.g. Planet Zoo vs ZT2">' + H + "Shown on the Event Mode stage and under the home page countdown.</span></label></div>" +
+      '<label class="field"><span>YouTube link (when you have it)</span><input type="text" data-bind="nextVideo.url" data-type="yturl" placeholder="https://youtu.be/…">' + H + "The premiere or scheduled video's link. It powers the \"Watch it now\" button at release. Without it the button goes to your channel.</span></label>" +
       '<label class="check"><input type="checkbox" id="tba"' + (nv.date ? "" : " checked") + "> Date to be announced (no countdown)</label>" +
       '<label class="field" style="max-width:340px"><span>Delayed?</span><select id="slip">' +
       '<option value="0">No, on time</option><option value="7">Pushed back 1 week</option><option value="14">Pushed back 2 weeks</option><option value="custom">Pushed back… (days)</option></select></label>' +
       '<label class="field" id="slip-days" style="max-width:200px" hidden><span>Days</span><input type="number" min="1" max="60" data-bind="nextVideo.pushedBack" data-type="num"></label>' +
       '<p class="hint">When delayed, the old date shows crossed out under the countdown. Set it back to "on time" for the next video.</p>' +
+      "<h2>Event Mode</h2>" +
+      '<p class="hint" style="margin:-4px 0 12px">For the 6 hours before the release, everyone who opens the site lands on the countdown stage. Pyro and confetti when it drops, then 30 minutes later the site goes back to normal by itself.</p>' +
+      '<label class="check"><input type="checkbox" id="ev-skip"> Skip Event Mode for this video</label>' +
+      '<div id="ev-state"></div>' +
+      '<div class="actions" style="margin:0 0 6px"><button class="btn" type="button" id="ev-prev">Preview the stage</button><button class="btn" type="button" id="ev-prev-live">Preview the release</button></div>' +
+      '<p class="hint">Previews open in a new tab with what\'s typed here, even before you publish. Nobody else sees them.</p>' +
       "<h2>Latest video (backup)</h2>" +
       '<p class="hint" style="margin:-4px 0 14px">Normally the YouTube robot fills this in by itself every few hours. This is only shown if the robot hasn\'t run.</p>' +
       '<div class="vid-preview"><img alt="" id="lv-thumb"><span class="hint" id="lv-id"></span></div>' +
@@ -507,11 +516,59 @@
     slipSel.value = slip === 0 ? "0" : slip === 7 ? "7" : slip === 14 ? "14" : "custom";
     slipDays.hidden = slipSel.value !== "custom";
     function lv() { var id = S.cfg.latestVideo.id; var im = pane.querySelector("#lv-thumb"); im.src = thumb(id); im.hidden = !id; pane.querySelector("#lv-id").textContent = id ? "Video ID: " + id : ""; }
+
+    /* Event Mode: a plain-English line saying what will happen */
+    var skipBox = pane.querySelector("#ev-skip");
+    skipBox.checked = nv.eventMode === false;
+    function ukWhen(t, withDay) {
+      var o = { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" };
+      if (withDay) { o.weekday = "short"; o.day = "numeric"; o.month = "short"; }
+      try { return new Date(t).toLocaleString("en-GB", o); } catch (e) { return new Date(t).toLocaleString("en-GB"); }
+    }
+    function evState() {
+      var E = window.DucklopsEvent, box = pane.querySelector("#ev-state");
+      var info = E ? E.info({ nextVideo: S.cfg.nextVideo, channelUrl: S.cfg.channelUrl }) : null;
+      var kind = "ok", txt;
+      if (!info) { kind = "warn"; txt = "No release date set, so there's nothing to count down to."; }
+      else if (!info.enabled) { kind = "warn"; txt = "Off for this video. The home page countdown still runs as normal."; }
+      else {
+        var ph = E.phase(info);
+        if (ph === "before") txt = "Takes over the site " + ukWhen(info.start, true) + " → " + ukWhen(info.end) + " (UK time).";
+        else if (ph === "after") { kind = "warn"; txt = "This video is already out. Set the next release date and Event Mode switches itself back on."; }
+        else txt = "On right now, until " + ukWhen(info.end) + " (UK time).";
+        if (ph !== "after" && !info.url) txt += " No YouTube link yet: the Watch button will open your channel until you add it.";
+      }
+      if (same(S.cfg.nextVideo, S.cfg0.nextVideo) === false) txt += " Publish to make this live.";
+      box.innerHTML = '<div class="msg ' + kind + '">' + esc(txt) + "</div>";
+      pane.querySelector("#ev-prev").disabled = pane.querySelector("#ev-prev-live").disabled = !info;
+    }
+    var savedRelease = window.DucklopsEvent ? window.DucklopsEvent.ukTime(S.cfg0.nextVideo.date) : null;
+
     bindInputs(pane, function (el) {
-      if (el.getAttribute("data-bind") === "nextVideo.date") pane.querySelector("#tba").checked = !el.value;
-      lv();
+      if (el.getAttribute("data-bind") === "nextVideo.date") {
+        pane.querySelector("#tba").checked = !el.value;
+        // a new date after the last video has already gone out = a new video: start it fresh
+        if (savedRelease != null && savedRelease < Date.now() && el.value) {
+          if (S.cfg.nextVideo.eventMode === false && S.cfg0.nextVideo.eventMode === false) { S.cfg.nextVideo.eventMode = true; skipBox.checked = false; }
+          if (S.cfg.nextVideo.url && S.cfg.nextVideo.url === S.cfg0.nextVideo.url) { S.cfg.nextVideo.url = ""; pane.querySelector('[data-bind="nextVideo.url"]').value = ""; }
+          cfgCheck(); refreshBar();
+        }
+      }
+      lv(); evState();
     });
-    lv();
+    lv(); evState();
+    skipBox.addEventListener("change", function () {
+      S.cfg.nextVideo.eventMode = !skipBox.checked;
+      cfgCheck(); refreshBar(); evState();
+    });
+    function preview(live) {
+      var n = S.cfg.nextVideo, u = "../special/?demo" + (live ? "&live" : "&in=12");
+      if (n.label) u += "&title=" + encodeURIComponent(n.label);
+      if (n.url) u += "&url=" + encodeURIComponent(n.url);
+      window.open(u, "_blank", "noopener");
+    }
+    pane.querySelector("#ev-prev").addEventListener("click", function () { preview(false); });
+    pane.querySelector("#ev-prev-live").addEventListener("click", function () { preview(true); });
     pane.querySelector("#tba").addEventListener("change", function (e) {
       var d = pane.querySelector('[data-bind="nextVideo.date"]');
       if (e.target.checked) { d.dataset.keep = d.value; d.value = ""; } else if (d.dataset.keep) d.value = d.dataset.keep;

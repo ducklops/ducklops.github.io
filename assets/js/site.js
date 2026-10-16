@@ -113,7 +113,8 @@
   // scrolling marquee banner across the top
   var bn = C.banner || {};
   var bnMsgs = [].concat(bn.messages || bn.text || []).filter(Boolean);
-  if (bn.on && bnMsgs.length) {
+  var QUIET = document.body.hasAttribute("data-quiet");   // the Event Mode stage has no banner or pop-up
+  if (bn.on && bnMsgs.length && !QUIET) {
     var bar = document.createElement("div");
     bar.className = "marquee";
     bar.setAttribute("role", "region");
@@ -165,7 +166,7 @@
 
   // pop-up notice, shown once per visitor (per id)
   var pp = C.popup || {};
-  if (pp.on && pp.message && (!pp.homeOnly || BASE === "")) {
+  if (pp.on && pp.message && !QUIET && (!pp.homeOnly || BASE === "")) {
     var seenKey = "ducklops-popup-" + (pp.id || "notice");
     if (!store.get(seenKey)) {
       setTimeout(function () {

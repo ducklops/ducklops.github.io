@@ -23,14 +23,23 @@ window.DUCKLOPS_CONFIG = {
   },
 
   /* --- Next video drop ------------------------------------------------
-     Put a date/time to show a live countdown, e.g. "2026-10-18T18:00".
-     Leave as "" to show "DATE TO BE ANNOUNCED".
+     date: release time in UK time, e.g. "2026-10-18T18:00". Shows a live
+     countdown on the home page. Leave as "" to show "DATE TO BE ANNOUNCED".
+     label: the video's title.
+     url: the YouTube link, once you have it (optional).
      pushedBack: number of days it slipped. Shows the old date crossed out
-     under the countdown. Set back to 0 for the next video.               */
+     under the countdown. Set back to 0 for the next video.
+
+     EVENT MODE: for the 6 hours before the date, everyone who opens the
+     site lands on the countdown stage (ducklops.com/special), with pyro
+     and confetti at release. 30 minutes after, the site goes back to
+     normal by itself. eventMode: false skips it for this video.        */
   nextVideo: {
     date: "2026-10-18T16:30",
-    label: "I Counted Down EVERY Dinosaur in Prehistoric Kingdom",                         // optional, e.g. "Planet Zoo vs ZT2"
-    pushedBack: 7
+    label: "I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
+    url: "",
+    pushedBack: 7,
+    eventMode: true
   },
 
   /* --- Scrolling banner across the top of every page ------------------
