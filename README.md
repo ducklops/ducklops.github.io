@@ -121,6 +121,18 @@ Edit `assets/js/config.js` → `popup`. Set `on: true` and write your `message` 
 2. Edit `readables/posts.js` and copy a block to the **top** of the list. `slug` must match the file name. Keep the comma after each `}`.
 3. To show something as Coming Soon, add `status: "soon"` (no `.md` file needed yet).
 
+### Scheduled Readables (go public at a set time)
+Upload the article whenever it suits you (e.g. right after the video's out) and pick when it should go public. Until then it shows as a **locked card with a countdown on the thumbnail**, on the Readables page and the home page. Its own page shows the same countdown plus a "Watch the video now" button. When the clock hits zero the article appears by itself, even for people already sitting on the page. There's nothing to do on the day.
+
+In the Console: **Readables → + New readable** (or Edit) → **Status: Scheduled** → pick the time (UK time; there are quick picks for tomorrow, 3 days, 1 week, 2 weeks at 6pm), write or paste the article, **Done**, **Publish**. You'll see a preview of the countdown card as you set it up. To release it early, change the status to **Published** and publish. To push it back, change the time.
+
+By hand: add `releaseAt: "2026-10-25T18:00"` to the post's block in `readables/posts.js` (UK time), and upload the `.md` file as normal.
+
+Good to know:
+- Viewers abroad see the countdown and opening time in their own clock.
+- Search engines are told to ignore it until it's out. A GitHub robot (**Actions → Release scheduled Readables**, every hour) adds it to `sitemap.xml` once it's public, so Google picks it up. No setup needed, and the **Run workflow** button does it straight away.
+- The lock is for show, not security: the article file is uploaded at the same time, so someone who knows the exact file address could read it early. Only schedule things that are fine to be public (like a video that's already out).
+
 ### New correction
 Edit `corrections/index.html`. There's a commented template block near the top with instructions: copy it, fill it in, and add a line to the contents list.
 
