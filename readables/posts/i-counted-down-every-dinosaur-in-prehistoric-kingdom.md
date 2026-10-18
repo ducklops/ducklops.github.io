@@ -1,0 +1,86 @@
+Round 1: 50-40
+For the first ten, we’ll go with a speed round to make sure we can get through this. I regrettably put the psittacosaurus last place, because they’re not hugely special to me. They’re small little herbivores, and their only distinctive features are their *debatable* hairy tails, and parrot-like beaks. They’re tiny and cute, but somebody has to come last.
+
+Next, Coelophysis, a small theropod that somewhat resembles Compsognathus, and was the second dinosaur to go to space. We don’t know yet how they developed spaceflight, but once we figure that out, I’m sure it’ll move up on my list.
+
+Regrettably, Yi qi, the only species of Yi came in at 48. They are tiny climbers and gliders, who resemble modern day bats. They’re really cute, and super interesting, but unfortunately this is where they belong in my rank.
+
+At 47th is Leaellynasaura. They’re relatively small with long tails, and lived in a part of Australia once in the Antarctic circle, likely having to survive without seeing the sun for weeks on end. While they’re clearly resilient and super cute, they ended up quite low down in the list.
+
+Next is the super cute Pachyrhinosaurus, which despite looking like a pimped out triceratops has placed 46th. They’re huge and weigh nearly 4 tonnes, which is literally more than me.
+
+Who put a pigeon in this list? Oh, it’s just archaeopteryx lithographica. It was once thought to be the oldest ever type of bird, and being the size of a raven, it’s safe to say they were tiny. Even though they’re down at 45th, they’re far from insignificant.
+
+Next, we’ve got Lambeosaurus, Muttaburrasaurus, and BTEC Ankylosaurus, AKA Scelidosaurus. They’re three unrelated herbivores, who would never have seen each other alive, but they’re actually kind of cool. Lambeosaurus can walk on all fours or just its hind legs, and Muttaburrasaurus may have been able to make noise out of its head tube thing. As for Scelidosaurus, it was a really early armored dinosaur. And, samples of all of its bones have been discovered. Even if these three are cool, they still sit at 44th, 43rd, and 42nd place.
+
+This is a controversial take. You’re witnessing my cancellation. At 41st place is the microraptor. They’re super cute and I know Nigel Marven loves them, but I very rarely use the vivariums so it’s hard to be too attached to them.
+
+Finishing up with round one, we have plateosaurus in 40th place. It was one of the earliest large herbivores to ever walk the Earth. They could swap between walking on two or four legs depending on what they wanted to reach. They might not be the flashiest pick, but they’ve earnt their spot up here as one of the oldest dinosaurs on the list – evolutionarily speaking. That is a word; check the dictionary.
+
+Round 2: Speed Round 39-25
+Alright let’s get the pace up for a speed*ier* round. Airhorn. At 39, we have apatosaurus. It was the species that started the entire Brontosaurus conundrum. With a whip-like tail, a crane-like neck, and countless paleontologists rowing over its name. That feels about right for a dinosaur down here in the list.
+I put the Edmontosaurus at 38th. They were one of the last non-avian dinosaurs to walk the planet before the dino poo hit the fan and they had that whole extinction event. We know an unusual amount about their *skin* thanks to several “mummified” specimens. Still, not quite enough to crack the top half apparently.
+We’re getting into some of the well-known names with parasaurolophus walkeri at 37th. This is the species with the unmistakably iconic backward-curving crest, which is mostly agreed to have worked like a built-in trombone to make calls. This must’ve been one of the coolest sounding dinosaurs to have ever existed, but all dinosaurs are super cool so it’s really low down.
+At 36 it’s the dilophosaurus. Unfortunately, without the iconic neck frill and venom that Jurassic Park convinced me of. It was still a great early Jurassic predator, just not as exciting as it could’ve been. Get well soon.
+The Torvosaurus gurneyi is at 35th as one of Europe’s largest ever carnivores. It was discovered in Portugal, and was named after James Gurney, the extremely talented artist, whose work I cannot show you for copyright reasons. It was a genuine apex predator that just so happens to be sat down here in my list.
+Camarasaurus supremus comes in at 34. This was the largest known species of Camarasaurus, and it had that distinctive boxy skull and chisel-like teeth that were built specifically for stripping vegetation. Not very supremus sitting down here at 34, though, are we?
+The Oviraptor philoceratops, with a name that literally means egg thief is at 33rd. They weren’t actually egg thieves. You see, paleontologists discovered them with what they originally though were protoceratops eggs. It turns out they were not. They were in fact oviraptor eggs, so it’s probably time to update that name, folks. I’m thinking Ducklopsosaurus.
+32nd place is Acrocannthosaurus atokensis. It was named after Atoka County in Oklahoma in the USA, and is instantly recognisable with the tall ridge of spines running down its back. It’s one of North America’s biggest predators. 
+Ouranosaurus is a sail-backed herbivore from Niger, with a little thumb spike not too dissimilar from the Iguanodon’s. Genuinely underrated, and criminally low on this list. If only I could do something about that…
+At 30th, we’ve got the iconically cute Compsognathus longipes. It’s one of the smallest dinosaurs ever discovered, at the size of a chicken it was super quick and was famously found with the remains of a lizard still in its stomach. Tiny, but still mighty enough to get this far in the list.
+At 29th is a hadrosaur that lived in what is now Alaska. It’s name <Ugrunaaluk kuukpikensis> literally translates to “the ancient grazer of the Colville River” in <Iñupiaq>. Surviving polar winters as a dinosaur is objectively super cool and that’s why it’s pretty high up here on the list.
+28th is Mononykus. It’s a small theropod with stumpy, single-clawed forelimbs. They were probably used for digging up insect nests. They’re pretty strange, little animals – genuinely one of the weirdest little silhouettes we’ve got in the entire game.
+Pachyrhinosaurus lakustai takes 27th. It’s pretty insulting considering how high up we’ll find his cousin. They’re known from an enormous collection of bones in Alberta, and sport a broad boss instead of a horn.
+Torvosaurus taneri is coming in at 26th. The earlier and scarier looking cousin of the Torvosaurus we spoke about earlier. They were one of the largest predators of the entire Jurassic Period, and were found around the same Morrison Formation as Allosaurus!
+Closing out of round two is the Iguanadon, one of the first ever dinosaurs to be formally described. They’re super famous for the dozens of skeletons that were pulled from a Belgian coal mine in Bernissart. They’re iconic, but just at the end of this half.
+Well, that’s the end of the not so speedy round, so let’s try and dive a little bit more into each dinosaur.
+25-20 Round 3
+One of the largest land animals to have ever existed is at 24. Estimates put Argentinosaurus somewhere around 90 tonnes, and it’s mostly known from these absolutely enormous vertebrae, along with a shin bone longer than my car. A to-scale representation is on screen. Also, we don’t have a complete skeleton of this thing yet. It’s being reconstructed piece by piece from fragments. It didn’t quite break the top 20, but they’re super cool nevertheless.
+
+The Mongolian chicken mimic, Gallimimus bullatus, whose notable IMDb mention comes from the stampede scene in Jurassic Park, is sitting 23rd. They had super flexible legs so they could sweep low to snap food up, barely slowing down. They were fast, toothless, and 23rd.
+
+Camarasaurus grandis, a dinosaur with remarkable complete skeletons, and chisel-shaped teeth is at 22. They had boxy skull s, and unusually highly seated nostrils, which managed to convince us for DECADES that sauropods like them had built-in snorkels. They didn’t.
+
+Edmontosaurus regalis, meaning royal, is landing at 21st. Some specimens have preserved soft-tissue, which show a fleshy crest on top of the head. I mean that’s just wild for fossil preservations. You get a bonus fact for this dinosaur too: it’s one of the largest hadrosaurs ever discovered, easily being longer than 12 metres.  
+
+The lambeosaurine hadrosaur from China, Charonosaurus is at 20th. It was named after Charon, the ferryman of the dead. Extremely over-dramatic name for a plant-eater. They’re closely related to Parasaurolophus. Well done for making it to 20th!
+
+19-12 Super-Speed Round
+This is taking a long time. If you’re still here, leave a comment with the praying 🙏 emoji, but first let’s do a speed round… again. One sentence per dinosaur, no more.
+19 - camarasaurus lentus. It has a very well preserved skeleton. Here’s a picture.
+18 - parasaurolophus [cyrtocristatus]. It might be a species of its own, it might just be a juvenile parasaurolophus.
+17 - brontosaurus excelsus. Spent one hundred years with the wrong skull, made a great return in 2015, as did hoverboards.
+16 - tarbosaurus bataar. Asia’s T. rex, arguably meaner, being smaller with a similar bite force.
+15 - dryosaurus altus. Built for nothing more than running. No more needs to be said about this prehistoric ostrich.
+14- styracosaurus albertensis. Dressed for battle, from Alberta, I think those two speak for themselves.
+Closing out the speed round at 13 is protoceratops andrewsi, from Mongolia. It was found locked in combat with a velociraptor, and may have inspired the griffin myth.
+
+12-4 Top 12
+Well that was exciting, and we got a lot done. Let’s count down to the Top 3.
+12th is the brachiosaurus altithorax. It’s got longer front legs than its back legs, which gives it that absolutely unforgettable giraffe-esque stance. It’s one of the tallest dinosaurs to have ever existed, and its bony nostril *openings* sit atop its skill, which again fed the snorkel theory, even though the actual nostril flesh was probably much further forward on its snout.
+
+At 11th, it’s the fan-favourite: velociraptor. They’re much smaller than pop culture has led most of us to believe, more like turkeys than humans. They had a lethal sickle shaped claw and quill knobs along its forearms, so they were feathered too. Bonus fact coming your way: they actually lived in a harsh and dune-filled desert in Mongolia. Absolutely nothing like the lush jungles it’s usually shown in.
+
+Up next, at 10th, is stegosaurus ungulatus, one of the earliest described species of stegosaurus. They had the iconic back plates and a – word of the day– thagomiser tail built to inflict some serious damage. The word ‘thagomiser’ was actually coined as a joke in a 1982 Far Side comic before paleontologists adopted it for realsies. They’re one of the most recognisable dinosaurs in history, just cracking the top 10.
+
+The Nasutoceratops titusi, the ‘big-nosed horned face’ from the Late Cretaceous period is 9th. They were from Utah, and, naturally, fans of the Jazz. Their brow horns curve forward like one of those longhorn bulls, which is bizarre since most other ceratopsians’ sweep upwards, giving them some sort of warrior look. They were found at the same rock formation as a whole host of other strange dinosaurs, which is why that part of Utah is such a hotspot for ceratopsian discoveries.
+
+8th place is where the carcharodontosaurus saharicus sits, the ‘shark-toothed lizard’ coming from North Africa. It’s a predator that rivalled and probably even outsized T. rex in length. They’re teeth were like blades, and their skull was well over a metre and a half long. They had a lifestyle in what was once a lush river system, long, long before the Sahara desert existed. The original skeleton was destroyed by bombs in Munich during the Second World War, and it was decades before another decent skull rocked up.
+
+Pachyrhinosaurus perotorum is up here at 7th. They are the Alaskan species of Pachyrhinosaurus, coping with months and months of winter darkness, living up above the Arctic Circle. They have the same bony boss in place of a horn, but they were built for a cold and dark world for part of the year. They were only actually named in 2012, making them a relatively recent ceratopsian on my list.
+
+Stegosaurus stenops is 6th. This is the stegosaurus that most people picture. It’s known from several absolutely excellent skeletons, including ‘Sophie’ at the Natural History Museum in London. She’s one of the most complete stegosauruseses ever found. For years, people claimed that stegosaurus had a second brain in its hips. It sounds ridiculous because it was. It was actually just an enlarged spinal canal but that legend stuck for decades.
+
+Top 5 now. Next, is deinocheirus mirificus. It’s pretty unknown for a dinosaur so high up, but their name, ‘the unusual horrible hand’ deserves them some more credit than they usually get. For nearly 50 years, they were known only from a pair of enormous arms with giant claws, so we had to guess what the rest looked like. When full skeletons were described at last in 2014, they revealed a huge, humpbacked, duck-billed creature with fish remains in its stomach. Not at all what anyone had expected from those claws. 
+
+To close out Round 5 is my personal favourite, the mighty Triceratops. With its three-horned face, it is an icon of the dinosaur world. Its skull could reach over two metres long, which is among the largest of any land animal. It lived right up to the end of the Cretaceous period alongside the T. rex. When triceratops bones were first found, they were originally mistaken for those of a giant extinct bison. Unfortunately, there are other super cool dinosaurs that deserve to be higher in the ranks, which is why I had to put my personal fav at 4th.
+
+Round 6: Top 3:
+At 3rd is the Tyrannosaurus rex. The king of dinosaurs, and it’s very likely to be your favourite. Up to twelve metres long, with one of the strongest bite forces of any land animal ever, it’s a mighty creature that can even crush bone. Prehistoric Kingdom players have likely heard Nigel Marven jump to its defence before, as its tiny little pathetic arms were truthfully incredibly strong. It’s iconic, but taking home bronze.
+
+2nd place goes to the Ankylosaurus. A walking, talking, living tank. Covered head to toe in body armour, with a tail club made of fused bone that could probably make you combust on the spot, it’s a terrifyingly cute dinosaur. Even its eyelids were armoured. Not a chance anything is going to get close to defeating it, being so hard to bite. Still, silver.
+
+And now, the dinosaur you’ve been waiting for. It’s the coolest, meanest, and the best dinosaur in Prehistoric Kingdom. In first place, we’ve got Spinosaurus. It’s longer than the T. rex, with an enormous sail on its back and a tail like a paddle, built just for swimming. It’s fair to say the spinosaurus is a predator unlike any other, and thank God it’s not still alive today. It’s the only dinosaur we know of that was properly adapted to hunting in water, being so unique, huge, and the best dinosaur in Prehistoric Kingdom.
+
+Conclusion
+So, that concludes my ranking of the dinosaurs in Prehistoric Kingdom. I might’ve skipped a couple of specific genus, but I included all of the families and distinct species. Your ranking will definitely look different to mine. Please let me know in the comments where you disagree or agree with me. I'd love to hear it, but remember this is just my personal opinion. If you made it this far, leave a crown 👑 emoji to let me know in the comments! I hope you enjoyed and that you’ll leave a like and subscribe. I’ll see you in the next one. Bye!
