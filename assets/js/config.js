@@ -49,7 +49,7 @@ window.DUCKLOPS_CONFIG = {
   banner: {
     on: true,
     messages: [
-      "Coming Sunday: I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
+      "Out Now: I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
       "Duck tier members get videos early."
     ],
     link: "https://www.youtube.com/channel/UCfzosx6K6cPJolK7zgRDAqg/join",
@@ -63,7 +63,7 @@ window.DUCKLOPS_CONFIG = {
      homeOnly: true = only on the home page, false = whichever page
      they land on first.                                                 */
   popup: {
-    on: true,
+    on: false,
     id: "notice-5",
     title: "NOTICE.TXT",
     message: "Coming Sunday: I Counted Down EVERY Dinosaur in Prehistoric Kingdom\nThe video is a week late, and a long time coming, but I spent a lot of time making it so I hope you enjoy it.",
