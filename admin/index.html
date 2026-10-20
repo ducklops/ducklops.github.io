@@ -72,6 +72,10 @@
   @media (max-width: 640px) { .item { grid-template-columns: 70px minmax(0,1fr); } .item img, .item .noimg { width: 70px; } .item .b { grid-column: 1 / -1; justify-content: flex-start; } }
   .tag-soon { background: var(--yellow); padding: 0 4px; color: var(--ink); }
   .tag-new { background: var(--green-lt); padding: 0 4px; color: var(--ink); }
+  .tag-sched { background: var(--yellow); padding: 0 4px; color: var(--ink); }
+  .sched-box { border: 3px dashed var(--ink); background: #fff8dc; padding: 14px 14px 4px; margin: 0 0 16px; }
+  .sched-preview { margin: 0 0 12px; }
+  .sched-preview .cards { grid-template-columns: minmax(0, 340px); }
 
   .fix { border: 3px solid var(--ink); background: var(--paper-2); padding: 14px 14px 2px; margin: 0 0 14px; box-shadow: var(--shadow-sm); }
   .fix-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }

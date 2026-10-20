@@ -483,6 +483,46 @@ a.card:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--gree
 .soon-art span::after { content: "_"; animation: blink 1s steps(1) infinite; }
 .empty { border: 3px dashed var(--ink); padding: 26px; text-align: center; }
 
+/* scheduled Readables: locked card / page with a countdown until releaseAt */
+.card.sched { background: repeating-linear-gradient(135deg, var(--paper-2) 0 14px, #fff6d1 14px 28px); }
+.sched-thumb { position: relative; display: block; }
+.sched-thumb img { filter: grayscale(.6) brightness(.45); }
+.sched-thumb:hover img, .card.sched:hover .sched-thumb img { transform: none; }
+.sched-veil {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px; text-align: center; color: #fff;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 2px, transparent 2px 4px), rgba(13,39,71,.45);
+}
+.sched-flag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px 1px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+}
+.sched-lock { width: 10px; height: 12px; fill: var(--ink); flex: none; }
+.sched-lock .k { fill: var(--yellow); }
+.sched-label { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 1px 0 #000; }
+.cd { display: flex; gap: 12px; }
+.cd-u {
+  position: relative; display: flex; flex-direction: column; align-items: center; min-width: 46px; padding: 4px 6px 3px;
+  background: var(--navy); border: 2px solid var(--ink); box-shadow: inset 0 0 0 2px #284a70, 2px 2px 0 var(--ink); color: var(--lcd);
+}
+.cd-u b { font-weight: 400; font-size: 24px; line-height: 1.05; font-variant-numeric: tabular-nums; text-shadow: 0 0 8px rgba(125,255,161,.55); }
+.cd-u i { font-style: normal; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #cfe; }
+.cd-u + .cd-u::before { content: ":"; position: absolute; left: -10px; top: 5px; font-size: 20px; color: #fff; animation: cdblink 1s steps(1) infinite; }
+@keyframes cdblink { 50% { opacity: .15; } }
+.tag.tag--sched { background: var(--yellow); }
+.sched-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: center; margin: 0 0 32px; max-width: 1000px; }
+.sched-hero .thumb { box-shadow: var(--shadow); }
+.sched-hero .cd-u { min-width: 60px; }
+.sched-hero .cd-u b { font-size: 34px; }
+.sched-note { border: 3px solid var(--ink); background: var(--paper-2); padding: 16px 18px; box-shadow: var(--shadow-sm); font-size: 18px; line-height: 1.6; }
+.sched-note p { margin: 0 0 .8em; }
+.sched-note b { font-weight: 400; background: var(--yellow); padding: 0 4px; }
+.sched-note .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+@media (max-width: 760px) { .sched-hero { grid-template-columns: 1fr; } }
+@media (max-width: 380px) { .cd { gap: 10px; } .cd-u { min-width: 40px; padding: 3px 4px; } .cd-u b { font-size: 20px; } }
+[data-post].just-opened { animation: justopened .9s ease-out; }
+@keyframes justopened { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: none; } }
+
 /* single post */
 .progress { height: 6px; background: var(--ink); }
 .progress span { display: block; height: 100%; width: 0; background: var(--yellow); transition: width .1s linear; }

@@ -335,6 +335,21 @@ html.aero .achievement { border: 1px solid #9a9a9a; border-radius: 999px; backgr
 html.aero .achievement b { color: #a6f27f; text-transform: none; letter-spacing: .02em; }
 html.aero .quack { border-radius: 10px; border: 1px solid rgba(60,130,190,.5); background: linear-gradient(180deg, #fff, #e3f4ff); box-shadow: 0 3px 10px rgba(0,60,110,.25); }
 
+/* scheduled Readables: glassy countdown */
+html.aero .sched-thumb img { filter: brightness(.55) saturate(.8) blur(1px); }
+html.aero .sched-veil { background: radial-gradient(ellipse at 50% -10%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%), linear-gradient(180deg, rgba(10,70,120,.25), rgba(3,30,60,.55)); color: #fff; text-shadow: 0 1px 3px rgba(0,30,60,.7); }
+html.aero .sched-label { text-transform: none; letter-spacing: .04em; font-weight: 600; font-size: 14px; }
+html.aero .sched-flag { border: 1px solid #c79a00; border-radius: 999px; background: var(--gloss-soft), linear-gradient(180deg, #ffe680, #f2b705); box-shadow: 0 2px 6px rgba(0,40,80,.3); text-transform: none; letter-spacing: .02em; font-weight: 600; color: #4a3500; }
+html.aero .sched-lock .k { fill: #f2b705; }
+html.aero .cd-u { border: 1px solid rgba(255,255,255,.85); border-radius: 8px; background: var(--gloss-soft), linear-gradient(180deg, rgba(40,150,220,.75), rgba(5,60,110,.85)); box-shadow: 0 4px 12px rgba(0,30,70,.35), inset 0 1px 0 rgba(255,255,255,.6); }
+html.aero .cd-u b { font-weight: 600; }
+html.aero .cd-u i { text-transform: none; letter-spacing: .02em; }
+html.aero .cd-u + .cd-u::before { animation: none; opacity: .7; }
+html.aero .tag.tag--sched { border-color: #c79a00; background: var(--gloss-soft), linear-gradient(180deg, #ffd84d, #e8a900); color: #3d2c00; text-shadow: none; }
+html.aero .card.sched .meta span:first-child { border-radius: 4px; background: rgba(255,224,102,.7); }
+html.aero .sched-note b { border-radius: 4px; background: rgba(255,224,102,.75); font-weight: 600; }
+html.aero .sched-hero .thumb { border-radius: 10px; border: 1px solid rgba(255,255,255,.9); }
+
 @media (prefers-reduced-motion: reduce) {
   html.aero .aero-sky, .aero-flash { display: none !important; }
 }

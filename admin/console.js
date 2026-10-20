@@ -210,7 +210,28 @@
     return src;
   }
 
-  var POST_KEYS = ["slug", "title", "videoId", "author", "editor", "date", "tags", "summary", "minutes", "status"];
+  /* scheduled Readables: releaseAt is UK time, e.g. "2026-10-25T18:00" */
+  function relMs(p) {
+    if (!p || !p.releaseAt) return null;
+    var E = window.DucklopsEvent, t = E ? E.ukTime(p.releaseAt) : Date.parse(p.releaseAt);
+    return t == null || isNaN(t) ? null : t;
+  }
+  function isLocked(p) { var t = relMs(p); return t != null && t > Date.now(); }
+  function ukLong(t) {
+    try { return new Date(t).toLocaleString("en-GB", { timeZone: "Europe/London", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); }
+    catch (e) { return new Date(t).toLocaleString("en-GB"); }
+  }
+  function ukDay(t) {      // "YYYY-MM-DD" of moment t, as the day is in the UK
+    try { return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(t)); }
+    catch (e) { return new Date(t).toISOString().slice(0, 10); }
+  }
+  function fromNow(t) {
+    var m = Math.round((t - Date.now()) / 60000), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60), mm = m % 60;
+    if (m < 1) return "in under a minute";
+    return "in " + [d && d + " day" + (d === 1 ? "" : "s"), h && h + " hour" + (h === 1 ? "" : "s"), !d && mm && mm + " min"].filter(Boolean).join(", ");
+  }
+
+  var POST_KEYS = ["slug", "title", "videoId", "author", "editor", "date", "tags", "summary", "minutes", "status", "releaseAt"];
   function genPosts() {
     var src = S.files[P.posts].text, i = src.indexOf("window.READABLES");
     var head = i >= 0 ? src.slice(0, i) : "";
@@ -269,7 +290,8 @@
   function genSitemap() {
     var SITE = "https://www.ducklops.com/";
     var today = new Date().toISOString().slice(0, 10);
-    var live = S.posts.filter(function (p) { return p && p.slug && p.status !== "soon"; });
+    // scheduled ones are left out until they're public; the "Release scheduled Readables" robot adds them then
+    var live = S.posts.filter(function (p) { return p && p.slug && p.status !== "soon" && !isLocked(p); });
     var pages = [["", today, "1.0"], ["readables/", (live[0] && live[0].date) || today, "0.9"], ["corrections/", today, "0.6"],
       ["memberships/", today, "0.6"], ["contact/", today, "0.5"], ["ai/", today, "0.3"], ["privacy/", today, "0.2"]];
     var x = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Readables are added here automatically when you publish from the Console. -->\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
@@ -662,7 +684,8 @@
     var orig = (evalGlobal(S.files[P.posts].text, "READABLES") || []).map(function (p) { return p.slug; });
     pane.innerHTML = '<div class="editor-head"><h2 style="margin:0;flex:1">Readables</h2><button class="btn btn--green" type="button" id="new-post">+ New readable</button></div>' +
       (S.posts.length ? '<div class="list">' + S.posts.map(function (p, i) {
-        var meta = [p.status === "soon" ? '<span class="tag-soon">Coming soon</span>' : esc(p.date || "")];
+        var meta = [p.status === "soon" ? '<span class="tag-soon">Coming soon</span>' :
+          isLocked(p) ? '<span class="tag-sched">Scheduled · ' + esc(ukLong(relMs(p))) + "</span>" : esc(p.date || "")];
         if (orig.indexOf(p.slug) < 0) meta.push('<span class="tag-new">New</span>');
         if (S.mdDirty[p.slug]) meta.push('<span class="tag-new">Edited</span>');
         if (p.tags && p.tags.length) meta.push(esc(p.tags.join(", ")));
@@ -701,7 +724,8 @@
   function postEditor(pane) {
     var idx = S.view.index, p = S.posts[idx];
     var origSlugs = (evalGlobal(S.files[P.posts].text, "READABLES") || []).map(function (x) { return x.slug; });
-    var locked = !p._new && origSlugs.indexOf(p.slug) >= 0 && p.status !== "soon";
+    // web address is locked once an article is public, so old links keep working
+    var locked = !p._new && origSlugs.indexOf(p.slug) >= 0 && p.status !== "soon" && !isLocked(p);
     var allTags = [];
     S.posts.forEach(function (x) { (x.tags || []).forEach(function (t) { if (allTags.indexOf(t) < 0) allTags.push(t); }); });
     pane.innerHTML =
@@ -709,7 +733,12 @@
       '<div id="perr"></div>' +
       '<label class="field"><span>Title</span><input type="text" id="p-title"></label>' +
       '<div class="row"><label class="field"><span>Web address name</span><input type="text" id="p-slug" spellcheck="false"' + (locked ? " readonly" : "") + '><span class="hint" style="text-transform:none;letter-spacing:0">' + (locked ? "Locked so old links keep working." : "Made from the title. Lowercase and dashes.") + "</span></label>" +
-      '<label class="field"><span>Status</span><select id="p-status"><option value="">Published</option><option value="soon">Coming soon (no article yet)</option></select></label></div>' +
+      '<label class="field"><span>Status</span><select id="p-status"><option value="">Published</option><option value="scheduled">Scheduled (goes public at a set time)</option><option value="soon">Coming soon (no article yet)</option></select></label></div>' +
+      '<div class="sched-box" id="sched-box" hidden>' +
+      '<div class="row"><label class="field"><span>Goes public at (UK time)</span><input type="datetime-local" id="p-release"></label>' +
+      '<div class="field"><span>Quick pick (6pm UK)</span><div class="actions" style="margin:0"><button class="btn small" type="button" data-q="1">Tomorrow</button><button class="btn small" type="button" data-q="3">In 3 days</button><button class="btn small" type="button" data-q="7">In 1 week</button><button class="btn small" type="button" data-q="14">In 2 weeks</button></div></div></div>' +
+      '<div id="sched-msg"></div>' +
+      '<div class="sched-preview"><span class="hint" style="display:block;margin:0 0 8px">How the card looks on the site until then:</span><div class="cards" id="sched-card"></div></div></div>' +
       '<div class="vid-preview"><img alt="" id="p-thumb"></div>' +
       '<div class="row"><label class="field"><span>YouTube link or ID (optional)</span><input type="text" id="p-video" placeholder="https://youtu.be/…"></label>' +
       '<label class="field"><span>Date</span><input type="date" id="p-date"></label></div>' +
@@ -725,7 +754,9 @@
       '<div class="actions" style="margin-top:18px"><button class="btn btn--green" type="button" id="done">Done</button>' + (p._new ? '<button class="btn danger" type="button" id="cancel">Cancel</button>' : "") + "</div>";
 
     var $ = function (id) { return pane.querySelector("#" + id); };
-    $("p-title").value = p.title || ""; $("p-slug").value = p.slug || ""; $("p-status").value = p.status || "";
+    $("p-title").value = p.title || ""; $("p-slug").value = p.slug || "";
+    $("p-status").value = p.status === "soon" ? "soon" : (p.releaseAt === "" || isLocked(p)) ? "scheduled" : "";
+    $("p-release").value = p.releaseAt || "";
     $("p-video").value = p.videoId || ""; $("p-date").value = p.date || ""; $("p-author").value = p.author || "";
     $("p-editor").value = p.editor || ""; $("p-tags").value = (p.tags || []).join(", "); $("p-minutes").value = p.minutes || "";
     $("p-summary").value = p.summary || "";
@@ -753,7 +784,10 @@
         if (p._autoSlug && document.activeElement !== $("p-slug")) $("p-slug").value = slugify(p.title);
         p.slug = slugify($("p-slug").value) || "";
       }
-      p.status = $("p-status").value || undefined;
+      var st = $("p-status").value;
+      p.status = st === "soon" ? "soon" : undefined;
+      // keep the time on one that's already gone out (harmless, and saves a pointless change)
+      p.releaseAt = st === "scheduled" ? $("p-release").value : (!st && relMs(p) != null && !isLocked(p) ? p.releaseAt : undefined);
       p.videoId = ytId($("p-video").value) || undefined;
       p.date = $("p-date").value || undefined;
       p.author = $("p-author").value.trim() || undefined;
@@ -769,13 +803,46 @@
       }
       touch("posts");
     }
-    ["p-title", "p-slug", "p-status", "p-video", "p-date", "p-author", "p-editor", "p-tags", "p-minutes", "p-summary"].forEach(function (id) {
+    ["p-title", "p-slug", "p-status", "p-release", "p-video", "p-date", "p-author", "p-editor", "p-tags", "p-minutes", "p-summary"].forEach(function (id) {
       $(id).addEventListener(id === "p-status" ? "change" : "input", function () {
         if (id === "p-slug") p._autoSlug = false;
+        if (id === "p-status" && $("p-status").value === "scheduled" && !$("p-release").value) pickDays(1);
         save();
+        if (id === "p-release") { var t = relMs(p); if (t != null) { $("p-date").value = ukDay(t); save(); } }
         if (id === "p-video") { thumbUpd(); autoTitle(); }
+        schedUI();
       });
     });
+
+    /* ---- scheduling ---- */
+    function pickDays(n) {
+      var d = ukDay(Date.now()).split("-");
+      var t = new Date(Date.UTC(+d[0], +d[1] - 1, +d[2]) + n * 86400000);
+      $("p-release").value = t.toISOString().slice(0, 10) + "T18:00";
+      $("p-date").value = t.toISOString().slice(0, 10);
+    }
+    $("sched-box").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-q]"); if (!b) return;
+      pickDays(+b.getAttribute("data-q"));
+      save(); schedUI();
+    });
+    function schedUI() {
+      var on = $("p-status").value === "scheduled";
+      $("sched-box").hidden = !on;
+      if (!on) { $("sched-card").innerHTML = ""; return; }
+      var t = relMs(p), msg = $("sched-msg"), kind, txt;
+      if (t == null) { kind = "warn"; txt = "Pick when it should go public."; }
+      else if (t <= Date.now()) { kind = "warn"; txt = "That time has already passed, so it'll be public as soon as you publish."; }
+      else { kind = "ok"; txt = "Goes public " + ukLong(t) + " UK time (" + fromNow(t) + "). Until then its card and page show a countdown, then the article appears by itself. Nothing to do on the day."; }
+      msg.innerHTML = '<div class="msg ' + kind + '">' + esc(txt) + "</div>";
+      var R = window.DucklopsReadables;
+      if (R && t != null && t > Date.now()) {
+        var copy = clone(p); copy.title = copy.title || "Your title here";
+        $("sched-card").innerHTML = R.card(copy);
+        R.startClock();
+      } else $("sched-card").innerHTML = "";
+    }
+    schedUI();
     body.addEventListener("input", function () { S.md[bodyKey] = body.value; if (bodyKey) S.mdDirty[bodyKey] = true; refreshBar(); });
     function autoTitle() {
       var id = ytId($("p-video").value); if (!id || $("p-title").value.trim()) return;
@@ -802,6 +869,7 @@
       if (!p.title) err = "Give it a title.";
       else if (!p.slug) err = "It needs a web address name.";
       else if (S.posts.some(function (x, i) { return i !== idx && x.slug === p.slug; })) err = 'Another readable already uses "' + p.slug + '". Change the web address name.';
+      else if ($("p-status").value === "scheduled" && relMs(p) == null) err = "Pick when it should go public, or set the status to Published.";
       else if (p.status !== "soon" && !(S.md[p.slug] || "").trim() && S.mdExists[p.slug] === undefined && p._new) err = "Write the article, or set the status to Coming soon.";
       if (err) { $("perr").innerHTML = '<div class="msg err">' + esc(err) + "</div>"; window.scrollTo(0, 0); return; }
       if (p._new && (S.md[p.slug] || "").trim()) S.mdDirty[p.slug] = true;

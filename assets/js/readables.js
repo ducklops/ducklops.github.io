@@ -16,6 +16,58 @@
   }
   function postURL(p) { return BASE + "readables/post.html?p=" + encodeURIComponent(p.slug); }
 
+  /* ----------------- scheduled Readables -----------------
+     releaseAt: "2026-10-25T18:00" (UK time). Until then the card and the
+     article page show a countdown instead of the article; the moment it
+     hits zero the article appears by itself, no refresh needed. */
+  function releaseOf(p) {
+    if (!p || !p.releaseAt) return null;
+    var E = window.DucklopsEvent;
+    var t = E && E.ukTime ? E.ukTime(p.releaseAt) : Date.parse(p.releaseAt);
+    return t == null || isNaN(t) ? null : t;
+  }
+  function locked(p, now) { var t = releaseOf(p); return t != null && t > (now == null ? Date.now() : now); }
+  function isLive(p) { return p.status !== "soon" && !locked(p); }
+  function unlockWhen(t) {
+    var o = { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZoneName: "short" };
+    try { return new Date(t).toLocaleString("en-GB", o); } catch (e) { return new Date(t).toLocaleString(); }
+  }
+  function two(n) { return n < 10 ? "0" + n : String(n); }
+  function cdParts(ms) {
+    var s = Math.max(0, Math.ceil(ms / 1000));
+    return [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60];
+  }
+  var CD_UNITS = ["days", "hrs", "min", "sec"];
+  function countdown(t) {
+    var v = cdParts(t - Date.now());
+    return '<span class="cd" data-unlock="' + t + '" aria-hidden="true">' + v.map(function (n, i) {
+      return '<span class="cd-u"><b>' + two(n) + "</b><i>" + CD_UNITS[i] + "</i></span>";
+    }).join("") + "</span>";
+  }
+  var LOCK_SVG = '<svg class="sched-lock" viewBox="0 0 10 12" aria-hidden="true" shape-rendering="crispEdges"><path d="M3 0h4v1h1v1h1v3H8V2H7V1H3v1H2v3H1V2h1V1h1z"/><path d="M0 5h10v7H0z"/><path class="k" d="M4 7h2v3H4z"/></svg>';
+  function lockedArt(p, t) {
+    return '<span class="sched-veil" aria-label="Locked until ' + esc(unlockWhen(t)) + '">' +
+      '<span class="sched-flag">' + LOCK_SVG + "Locked</span>" +
+      '<span class="sched-label">Goes public in</span>' + countdown(t) + "</span>";
+  }
+
+  // one shared clock for every countdown on the page
+  var timer = null;
+  function tick() {
+    var els = document.querySelectorAll("[data-unlock]"), now = Date.now(), opened = false;
+    if (!els.length) { clearInterval(timer); timer = null; return; }
+    Array.prototype.forEach.call(els, function (el) {
+      var left = +el.getAttribute("data-unlock") - now;
+      if (left <= 0) { el.removeAttribute("data-unlock"); opened = true; }
+      var v = cdParts(left), bs = el.querySelectorAll("b");
+      for (var i = 0; i < bs.length; i++) if (bs[i].textContent !== two(v[i])) bs[i].textContent = two(v[i]);
+    });
+    if (opened) { try { document.dispatchEvent(new CustomEvent("ducklops:unlocked")); } catch (e) {} }
+  }
+  function startClock() { if (!document.querySelector("[data-unlock]")) return; if (!timer) timer = setInterval(tick, 1000); tick(); }
+  // a tab left in the background can miss the moment: check again when it comes back
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) tick(); });
+
   /* ----------------- per-article search + sharing tags -----------------
      Every article lives at post.html?p=slug, so the page's tags are filled in
      here for the article being shown (Google reads them after running JS). */
@@ -106,6 +158,16 @@
         '<div class="card-body"><div>' + tags + '</div><h3>' + esc(p.title) + '</h3><p>Being written up. Check back soon.</p></div></article>';
     }
     var meta = [];
+    var rel = releaseOf(p);
+    if (locked(p)) {
+      meta.push("Opens " + esc(unlockWhen(rel)));
+      if (p.author) meta.push("By " + esc(p.author));
+      return '<a class="card sched" href="' + postURL(p) + '" data-tags="' + esc((p.tags || []).join(",")) + '">' +
+        '<span class="thumb sched-thumb">' + (p.videoId ? thumb(p.videoId, "") : "") + lockedArt(p, rel) + "</span>" +
+        '<div class="card-body"><div>' + tags + (tags ? " " : "") + '<span class="tag tag--sched">Scheduled</span></div><h3>' + esc(p.title) + "</h3>" +
+        (p.summary ? "<p>" + esc(p.summary) + "</p>" : "") +
+        '<div class="meta">' + meta.map(function (m) { return "<span>" + m + "</span>"; }).join("") + "</div></div></a>";
+    }
     if (p.date) meta.push(niceDate(p.date));
     if (p.minutes) meta.push(p.minutes + " min read");
     if (p.author) meta.push("By " + esc(p.author));
@@ -117,10 +179,18 @@
   }
 
   /* ----------------- home: latest 3 ----------------- */
+  window.DucklopsReadables = { card: card, startClock: startClock, releaseOf: releaseOf, locked: locked };
+
   var homeList = document.querySelector("[data-readables-latest]");
   if (homeList) {
-    var live = POSTS.filter(function (p) { return p.status !== "soon"; }).slice(0, 3);
-    homeList.innerHTML = live.length ? live.map(card).join("") : '<p class="empty">No Readables yet.</p>';
+    var renderHome = function () {
+      // scheduled ones count too: their countdown card is the teaser
+      var live = POSTS.filter(function (p) { return p.status !== "soon"; }).slice(0, 3);
+      homeList.innerHTML = live.length ? live.map(card).join("") : '<p class="empty">No Readables yet.</p>';
+      startClock();
+    };
+    renderHome();
+    document.addEventListener("ducklops:unlocked", renderHome);
   }
 
   /* ----------------- index page ----------------- */
@@ -141,8 +211,10 @@
       });
       grid.innerHTML = list.length ? list.map(card).join("") : '<p class="empty">No readables match that. Try another word?</p>';
       var c = document.querySelector("[data-readables-count]");
-      if (c) c.textContent = list.filter(function (p) { return p.status !== "soon"; }).length + " file(s)";
+      if (c) c.textContent = list.filter(isLive).length + " file(s)";
+      startClock();
     }
+    document.addEventListener("ducklops:unlocked", function () { render(); });
     chipBox.addEventListener("click", function (e) {
       var b = e.target.closest(".chip"); if (!b) return;
       activeTag = b.getAttribute("data-tag");
@@ -161,14 +233,51 @@
     POSTS.forEach(function (p, i) { if (p.slug === slug) idx = i; });
     var post = POSTS[idx];
     var titleBar = document.querySelector("[data-post-file]");
+    var nav = document.querySelector("[data-post-nav]");
     function fail(msg) {
       postBox.innerHTML = '<div class="post-head"><p class="kicker">Error 404</p><h1 class="display post-title">Readable not found</h1></div>' +
         '<p class="prose">' + msg + '</p><p><a class="btn btn--green" href="' + BASE + 'readables/">Back to Readables</a></p>';
     }
-    if (!post || post.status === "soon") {
-      var nr = document.createElement("meta"); nr.name = "robots"; nr.content = "noindex"; document.head.appendChild(nr);
-      fail("That file seems to have waddled off. It may have been renamed or is still being written."); }
-    else {
+    function robots(on) {
+      var nr = document.head.querySelector('meta[name="robots"][data-hold]');
+      if (on && !nr) { nr = document.createElement("meta"); nr.name = "robots"; nr.content = "noindex"; nr.setAttribute("data-hold", ""); document.head.appendChild(nr); }
+      if (!on && nr) nr.remove();
+    }
+    function headHTML(p, meta) {
+      return '<header class="post-head"><p class="kicker">Ducklops Readables' + ((p.tags || []).length ? " // " + esc(p.tags.join(" · ")) : "") + "</p>" +
+        '<h1 class="display post-title">' + esc(p.title) + "</h1>" +
+        '<div class="post-meta">' + meta.map(function (m) { return "<span>" + m + "</span>"; }).join("") + "</div></header>";
+    }
+
+    // scheduled and not out yet: a locked file with a countdown
+    function showLocked(p) {
+      var t = releaseOf(p);
+      robots(true);                      // keep search engines off it until it's out
+      document.title = p.title + " (coming " + new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) + ") | Ducklops Readables";
+      if (titleBar) titleBar.textContent = p.slug.slice(0, 24).toUpperCase() + ".LOCKED";
+      var meta = [];
+      if (p.author) meta.push("Written by " + esc(p.author));
+      if (p.editor) meta.push("Edited by " + esc(p.editor));
+      meta.push("Opens " + esc(unlockWhen(t)));
+      postBox.innerHTML = headHTML(p, meta) +
+        '<div class="sched-hero"><div class="thumb sched-thumb">' + (p.videoId ? thumb(p.videoId, "") : "") + lockedArt(p, t) + "</div>" +
+        '<div class="sched-note"><p>This Readable is written and waiting. It goes public on <b>' +
+        esc(new Date(t).toLocaleString("en-GB", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })) +
+        "</b>.</p><p>Leave this page open and it'll appear by itself when the clock hits zero.</p>" +
+        '<div class="actions">' + (p.videoId ? '<a class="btn btn--green" href="https://youtu.be/' + esc(p.videoId) + '" target="_blank" rel="noopener">Watch the video now</a>' : "") +
+        '<a class="btn" href="' + BASE + 'readables/">All Readables</a></div></div></div>';
+      if (nav) nav.innerHTML = "";
+      startClock();
+      document.addEventListener("ducklops:unlocked", function once() {
+        if (locked(p)) return;
+        document.removeEventListener("ducklops:unlocked", once);
+        robots(false);
+        showPost(p);
+        try { postBox.classList.add("just-opened"); } catch (e) {}
+      });
+    }
+
+    function showPost(post) {
       document.title = post.title + " | Ducklops Readables";
       setSEO(post);
       if (titleBar) titleBar.textContent = post.slug.slice(0, 28).toUpperCase() + ".TXT";
@@ -177,13 +286,10 @@
       if (post.editor) meta.push("Edited by " + esc(post.editor));
       if (post.date) meta.push(niceDate(post.date));
       if (post.minutes) meta.push(post.minutes + " min read");
-      var head = '<header class="post-head"><p class="kicker">Ducklops Readables' + ((post.tags || []).length ? " // " + esc(post.tags.join(" · ")) : "") + "</p>" +
-        '<h1 class="display post-title">' + esc(post.title) + "</h1>" +
-        '<div class="post-meta">' + meta.map(function (m) { return "<span>" + m + "</span>"; }).join("") + "</div></header>";
       var video = post.videoId ? '<div class="post-video"><button type="button" class="thumb" data-load-video="' + esc(post.videoId) + '" aria-label="Play the video version">' +
         thumb(post.videoId, "Video thumbnail") + '<span class="play"><span></span></span></button>' +
         '<p class="kicker" style="margin:8px 0 0">Prefer watching? <a href="https://youtu.be/' + esc(post.videoId) + '" target="_blank" rel="noopener">Open on YouTube</a></p></div>' : "";
-      postBox.innerHTML = head + video + '<div class="prose" data-body><p class="kicker">Loading file…</p></div>';
+      postBox.innerHTML = headHTML(post, meta) + video + '<div class="prose" data-body><p class="kicker">Loading file…</p></div>';
       var vb = postBox.querySelector("[data-load-video]");
       if (vb) vb.addEventListener("click", function () {
         var f = document.createElement("iframe");
@@ -206,16 +312,22 @@
             "<p>Posts load once the site is online (or running on a local server). Opening the HTML file directly can't read the article files.</p>" :
             "<p>Couldn't load this article. Check that <code>readables/posts/" + esc(post.slug) + ".md</code> exists.</p>";
         });
-      // previous / next
-      var nav = document.querySelector("[data-post-nav]");
+      // previous / next (only articles that are out)
       if (nav) {
-        var live2 = POSTS.filter(function (p) { return p.status !== "soon"; });
+        var live2 = POSTS.filter(isLive);
         var i2 = live2.indexOf(post), newer = live2[i2 - 1], older = live2[i2 + 1];
         nav.innerHTML = (older ? '<a class="btn" href="' + postURL(older) + '">← Older</a>' : "<span></span>") +
           '<a class="btn btn--green" href="' + BASE + 'readables/">All Readables</a>' +
           (newer ? '<a class="btn" href="' + postURL(newer) + '">Newer →</a>' : "<span></span>");
       }
     }
+
+    if (!post || post.status === "soon") {
+      robots(true);
+      fail("That file seems to have waddled off. It may have been renamed or is still being written.");
+    }
+    else if (locked(post)) showLocked(post);
+    else showPost(post);
     // reading progress in the title bar
     var bar = document.querySelector(".progress span");
     if (bar) {
