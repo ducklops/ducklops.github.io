@@ -1,6 +1,7 @@
 You know Prehistoric Kingdom as the game with over 50 hyper-realistic dinosaurs. Some are objectively cooler than others, so today I’ll be counting them down starting right at the bottom, and working our way all the way up to Prehistoric Kingdom’s coolest, meanest, and best dinosaur. But, you’ll have to wait to find out which dinosaur that is.
 
 ## Round 1: 50-40
+
 For the first ten, we’ll go with a speed round to make sure we can get through this. I regrettably put the psittacosaurus last place, because they’re not hugely special to me. They’re small little herbivores, and their only distinctive features are their *debatable* hairy tails, and parrot-like beaks. They’re tiny and cute, but somebody has to come last.
 Next, Coelophysis, a small theropod that somewhat resembles Compsognathus, and was the second dinosaur to go to space. We don’t know yet how they developed spaceflight, but once we figure that out, I’m sure it’ll move up on my list.
 Regrettably, Yi qi, the only species of Yi came in at 48. They are tiny climbers and gliders, who resemble modern day bats. They’re really cute, and super interesting, but unfortunately this is where they belong in my rank.
