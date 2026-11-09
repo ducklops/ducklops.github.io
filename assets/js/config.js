@@ -35,10 +35,10 @@ window.DUCKLOPS_CONFIG = {
      and confetti at release. 30 minutes after, the site goes back to
      normal by itself. eventMode: false skips it for this video.        */
   nextVideo: {
-    date: "2026-10-18T16:30",
-    label: "I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
-    url: "https://youtu.be/IpnuKrPoOUM",
-    pushedBack: 7,
+    date: "2026-11-22T16:30",
+    label: "",
+    url: "",
+    pushedBack: 0,
     eventMode: true
   },
 
@@ -49,8 +49,8 @@ window.DUCKLOPS_CONFIG = {
   banner: {
     on: true,
     messages: [
-      "Out Now: I Counted Down EVERY Dinosaur in Prehistoric Kingdom",
-      "Duck tier members get videos early."
+      "New videos come out on Sundays",
+      "Duck tier members get videos early"
     ],
     link: "https://www.youtube.com/channel/UCfzosx6K6cPJolK7zgRDAqg/join",
     speed: 40                          // pixels per second; lower = slower
@@ -66,7 +66,7 @@ window.DUCKLOPS_CONFIG = {
     on: false,
     id: "notice-5",
     title: "NOTICE.TXT",
-    message: "Coming Sunday: I Counted Down EVERY Dinosaur in Prehistoric Kingdom\nThe video is a week late, and a long time coming, but I spent a lot of time making it so I hope you enjoy it.",
+    message: "",
     button: "OK",
     link: "https://www.youtube.com/channel/UCfzosx6K6cPJolK7zgRDAqg/join",                          // optional extra button, e.g. "https://youtu.be/..."
     linkText: "Access early",
